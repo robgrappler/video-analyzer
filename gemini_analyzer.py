@@ -156,35 +156,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-        print(f"Extracted {len(deduped)} thumbnails to: {thumbs_dir}")
-        print(f"Thumbnail metadata saved to: {meta_file}")
-    finally:
-        # Cleanup uploaded file
-        try:
-            genai.delete_file(video_file.name)
-            print("Cleaned up uploaded video from Gemini")
-        except Exception:
-            pass
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Analyze videos with Google Gemini 2.5 Pro"
-    )
-    parser.add_argument("video", help="Path to video file")
-    parser.add_argument(
-        "--api-key",
-        help="Google Gemini API key (or set GEMINI_API_KEY env var)"
-    )
-
-    args = parser.parse_args()
-
-    if not Path(args.video).exists():
-        print(f"Error: Video file not found: {args.video}")
-        sys.exit(1)
-
-    analyze_video_gemini(args.video, api_key=args.api_key)
-
-
-if __name__ == "__main__":
-    main()

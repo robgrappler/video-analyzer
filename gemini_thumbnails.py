@@ -207,16 +207,18 @@ Return ONLY JSON with this exact schema:
                 "suggested_caption": (item.get("suggested_caption") or "").strip()
             })
 
-        # Deduplicate within 3 seconds and clamp to 5–10 items
+        # Deduplicate by keeping at most one candidate per rounded second
+        # (e.g., 2.0s and 2.1s collapse to the same moment), and cap at 10.
         deduped = []
+        seen_secs = set()
         for c in sorted(candidates, key=lambda x: x["timestamp_seconds"]):
-            if any(abs(c["timestamp_seconds"] - d["timestamp_seconds"]) < 3 for d in deduped):
+            sec = int(round(c["timestamp_seconds"]))
+            if sec in seen_secs:
                 continue
+            seen_secs.add(sec)
             deduped.append(c)
         if len(deduped) > 10:
             deduped = deduped[:10]
-        if len(deduped) < 5 and candidates:
-            deduped = candidates[: min(10, len(candidates))]
 
         thumbs_dir = Path(video_path).parent / f"{Path(video_path).stem}_thumbnails"
         for idx, c in enumerate(deduped, 1):

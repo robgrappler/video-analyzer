@@ -1,69 +1,54 @@
-# Uncensored Video Analyzer
+# Video Analyzer (Gemini)
 
-Analyze videos using LLaVA 34B vision model with frame-by-frame temporal context understanding.
+Analyze videos using Google Gemini 2.5 Pro with full-video understanding.
 
 ## Features
 
-- **Truly uncensored** - runs locally with LLaVA
-- **Temporal context** - maintains narrative across frames
-- **Customizable FPS** - control analysis granularity
-- **Full transcripts** - saves detailed frame-by-frame + summary
+- Cloud-based video analysis (no local model required)
+- Full-video structured output or thumbnail extraction
+- Saves results to `{video_name}_gemini_analysis.txt` and optional thumbnails
 
 ## Installation
 
 ```bash
 # Install dependencies
-pip install ollama
+pip install google-generativeai
 
-# Make script executable
-chmod +x video_analyzer.py
+# Make scripts executable
+chmod +x gemini_analyzer.py gemini_thumbnails.py
 ```
 
-Make sure you have:
-- **Ollama** installed with **llava:34b** model
-- **ffmpeg** for frame extraction
+## Tools
 
-## Usage
+### Full Video Analysis (gemini_analyzer.py)
 
-Basic usage (analyzes 1 frame per second):
-```bash
-./video_analyzer.py /path/to/video.mp4
-```
-
-Analyze more frames for detailed content (2 FPS):
-```bash
-./video_analyzer.py video.mp4 --fps 2
-```
-
-Analyze fewer frames for long videos (0.5 FPS = 1 frame every 2 seconds):
-```bash
-./video_analyzer.py video.mp4 --fps 0.5
-```
-
-Use different model:
-```bash
-./video_analyzer.py video.mp4 --model llava:13b
-```
-
-## Output
-
-The script will:
-1. Extract frames from video
-2. Analyze each frame with temporal context
-3. Generate overall video summary
-4. Save full analysis to `{video_name}_analysis.txt`
-
-## Performance Notes
-
-- **LLaVA 34B**: Best quality, ~3-5 sec per frame (requires 20GB+ RAM)
-- **FPS = 1**: Good for most videos (1 min video = 60 frames)
-- **FPS = 0.5**: Better for long videos (1 min video = 30 frames)
-- **FPS = 2**: Detailed analysis for short clips
-
-## Example
+Generates a comprehensive multi-section analysis of the entire video.
 
 ```bash
-./video_analyzer.py sample.mp4 --fps 1
+# Provide your API key via environment variable
+export GEMINI_API_KEY={{GEMINI_API_KEY}}
+
+# Run the analyzer
+./gemini_analyzer.py /path/to/video.mp4
+
+# Or pass explicitly (not recommended to store in shell history)
+./gemini_analyzer.py /path/to/video.mp4 --api-key {{GEMINI_API_KEY}}
 ```
 
-This will create `sample_analysis.txt` with complete uncensored analysis.
+**Output:** `{video_name}_gemini_analysis.txt` labeled "GEMINI 2.5 PRO VIDEO ANALYSIS"
+
+### Thumbnail Extraction (gemini_thumbnails.py)
+
+Selects 5–10 high-CTR thumbnail moments and extracts frames.
+
+```bash
+export GEMINI_API_KEY={{GEMINI_API_KEY}}
+
+# Extract thumbnails
+./gemini_thumbnails.py /path/to/video.mp4
+```
+
+**Output:**
+- `{video_name}_thumbnails/` directory with extracted frames
+- `{video_name}_thumbnails.json` with metadata (timestamps, reasons, captions)
+- Thumbnail section appended to `{video_name}_gemini_analysis.txt`
