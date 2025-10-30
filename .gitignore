@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+*.log
+
+# Virtual environments
+.venv/
+venv/
+.env
+
+# macOS
+.DS_Store
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Generated analysis outputs
+*_analysis.txt
+*_gemini_analysis.txt
+
+# Temp/cache
+.cache/
+.tmp/
