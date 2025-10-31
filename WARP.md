@@ -43,6 +43,13 @@ export GEMINI_API_KEY={{GEMINI_API_KEY}}
 ./gemini_analyzer.py video.mp4 --api-key {{GEMINI_API_KEY}}
 ```
 
+Progress Tracking (to stderr):
+- **Upload progress**: `Uploading: 12.5 MB / 150 MB (8.3 MB/s)` updates in real-time
+- **Processing ETA**: `Processing... (elapsed: 45s, est. 2m remaining)` updates during Gemini analysis
+- Heuristic ETA uses file size and upload duration to estimate processing time
+- If actual processing exceeds 90% of estimate, ETA adapts upward to avoid misleading remaining time
+- Final lines: `Upload complete in X at Y avg` and `Processing complete in Z`
+
 Run: Thumbnail Extraction
 ```bash
 export GEMINI_API_KEY={{GEMINI_API_KEY}}

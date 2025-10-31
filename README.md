@@ -37,6 +37,12 @@ export GEMINI_API_KEY={{GEMINI_API_KEY}}
 
 **Output:** `{video_name}_gemini_analysis.txt` labeled "GEMINI 2.5 PRO VIDEO ANALYSIS"
 
+**Console Output (stderr):**
+The analyzer shows real-time progress to stderr:
+- Upload progress: bytes transferred, file size, transfer speed
+- Processing ETA: elapsed time and estimated remaining time (adaptive)
+- No flags needed; always verbose
+
 ### Thumbnail Extraction (gemini_thumbnails.py)
 
 Selects 5–10 high-CTR thumbnail moments and extracts frames.
