@@ -130,8 +130,15 @@ def select_and_extract_thumbnails(video_path, api_key=None):
 
     print(f"Uploading video: {video_path}")
 
-    # Upload video file
-    video_file = genai.upload_file(path=video_path)
+    # Upload video file with mime type
+    import mimetypes
+    mime_type, _ = mimetypes.guess_type(video_path)
+    video_file = genai.upload_file(
+        path=video_path,
+        mime_type=mime_type or "video/mp4",
+        display_name=os.path.basename(video_path),
+        resumable=True
+    )
     print(f"Uploaded: {video_file.name}\nProcessing video...")
 
     # Wait for processing
@@ -148,21 +155,36 @@ def select_and_extract_thumbnails(video_path, api_key=None):
     # Create model
     model = genai.GenerativeModel("models/gemini-2.5-pro")
 
-    # Prompt for thumbnails
+    # Wrestling-focused thumbnail prompt
     thumb_prompt = """
-Select 5–10 distinct, high-CTR moments in this video that would make compelling clickable thumbnails.
-Guidelines:
-- Prefer peak action or reaction moments where the primary subject is clear, sharp, and well-lit.
-- Avoid motion blur, transitions, title cards, fades, or near-duplicate moments (<3s apart).
-- Spread selections across the video if possible.
+Select 8–12 distinct, high-CTR moments in this wrestling/grappling video that would make compelling clickable thumbnails for gay male amateur grappling fans.
+
+Prioritize these wrestling-specific moments:
+- Pin attempts and near-falls with clear tension
+- Tight chest-to-chest control positions
+- Decisive takedowns with impact
+- Dramatic scrambles showing athleticism  
+- Submission threats with visible strain
+- Victory poses, hand raises, or dominance displays
+- Clear momentum swings or comebacks
+- Intense face-to-face or body-to-body contact
+
+Avoid:
+- Motion blur, transitions, title cards, fades
+- Near-duplicate moments (<3s apart)
+- Poor lighting or unclear subjects
+
 Return ONLY JSON with this exact schema:
 {
   "thumbnails": [
     {
-      "timestamp_seconds": number,           // nearest whole second if unsure
-      "timestamp_hms": "HH:MM:SS",          // zero-padded
-      "reason": "why this frame works",
-      "suggested_caption": "<= 8 words"
+      "timestamp_seconds": number,
+      "timestamp_hms": "HH:MM:SS",
+      "reason": "why this frame works for wrestling fans",
+      "suggested_caption": "<= 8 words",
+      "label": "technical_exchange|dominance|comeback|submission_threat|near_fall|scramble|victory|control",
+      "why_high_ctr": "brief hook for wrestling audience",
+      "crop_hint": "faces|upper_bodies|full_body|grip_closeup"
     }
   ]
 }
@@ -204,7 +226,10 @@ Return ONLY JSON with this exact schema:
                 "timestamp_seconds": float(ts),
                 "timestamp_hms": _format_hms(ts),
                 "reason": (item.get("reason") or "").strip(),
-                "suggested_caption": (item.get("suggested_caption") or "").strip()
+                "suggested_caption": (item.get("suggested_caption") or "").strip(),
+                "label": (item.get("label") or "unknown").strip(),
+                "why_high_ctr": (item.get("why_high_ctr") or "").strip(),
+                "crop_hint": (item.get("crop_hint") or "full_body").strip()
             })
 
         # Deduplicate by keeping at most one candidate per rounded second
@@ -225,7 +250,7 @@ Return ONLY JSON with this exact schema:
             out = _extract_frame(video_path, c["timestamp_seconds"], thumbs_dir, idx)
             c["image_path"] = str(out)
 
-        # Append thumbnail section to analysis file (create if missing)
+        # Append wrestling-focused thumbnail section to analysis file
         output_file = Path(video_path).stem + "_gemini_analysis.txt"
         exists = Path(output_file).exists()
         with open(output_file, 'a' if exists else 'w') as f:
@@ -233,12 +258,14 @@ Return ONLY JSON with this exact schema:
                 f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
                 f.write("=" * 60 + "\n\n")
             f.write("\n" + "=" * 60 + "\n")
-            f.write("THUMBNAIL CANDIDATES\n")
+            f.write("THUMBNAIL PICKS (WRESTLING)\n")
             f.write("=" * 60 + "\n\n")
             for c in deduped:
-                cap = f" {c['suggested_caption']}" if c.get('suggested_caption') else ""
-                reason = f" — {c['reason']}" if c.get('reason') else ""
-                f.write(f"[{c['timestamp_hms']}] {c['image_path']}{cap}{reason}\n")
+                cap = f" '{c['suggested_caption']}'" if c.get('suggested_caption') else ""
+                label = f" [{c['label']}]" if c.get('label') else ""
+                ctr_hook = f" — {c['why_high_ctr']}" if c.get('why_high_ctr') else ""
+                crop = f" (crop: {c['crop_hint']})" if c.get('crop_hint') else ""
+                f.write(f"[{c['timestamp_hms']}]{label} {c['image_path']}{cap}{ctr_hook}{crop}\n")
 
         # Save structured thumbnail data
         meta_file = Path(video_path).stem + "_thumbnails.json"

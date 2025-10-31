@@ -13,6 +13,8 @@ import re
 import time
 import random
 import io
+import json
+import mimetypes
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
 
 
@@ -198,7 +200,94 @@ def _generate_with_retry(model, parts, generation_config=None, safety_settings=N
             continue
 
 
-def analyze_video_gemini(video_path, api_key=None):
+def _build_prompt(mode: str = "both", cta_url: str = None) -> str:
+    """Build analysis prompt based on mode."""
+    core_summary = """PART A — CORE SUMMARY (Legacy-compatible overview)
+1) Overall Summary: What happens in the video from start to finish
+2) Key Scenes: Main scenes and transitions with timestamps
+3) People/Subjects: Who or what is featured (neutral descriptors only)
+4) Actions: High-level activities and events
+5) Setting: Where this takes place
+6) Tone/Style: Mood and presentation style"""
+
+    wrestling_report = f"""PART B — WRESTLING SALES REPORT (Detailed, conversion-focused)
+
+1) MATCH INTENSITY & COMPETITIVENESS LEVEL
+   - Rate intensity_10 (1=relaxed drill, 10=all-out war)
+   - Rate competitiveness_10 (1=runaway, 10=razor-thin)
+   - List momentum_shifts: each entry is {{start_s, end_s, who_led (A|B|even), why}}
+   - Balance descriptor: back-and-forth | chess-match | grinder | runaway | mixed
+
+2) TECHNICAL SKILLS DEMONSTRATION
+   - Document each technique with {{name, type (takedown/control/transition/pin/escape/submission), difficulty_5, cleanliness (crisp|gritty), effectiveness (high|mid|low), start_s, end_s}}
+   - Overall technical_rating_10 (1=sloppy, 10=pristine)  
+   - Wrestling style: folkstyle | freestyle | submission grappling | mixed | pro-style elements
+
+3) PHYSICAL ATTRIBUTES & CHEMISTRY
+   - Physiques: For each participant, describe {{descriptor (lean|muscular|stocky|athletic), definition_5, conditioning_5, gear_notes}}
+   - Chemistry: competitive tension | friendly rivalry | alpha-vs-alpha | playful roughhousing
+   - heat_factor_5 (1=cold/clinical, 5=intense/charged) — describe sweat/sheen, close contact intensity, lingering holds (non-explicit)
+
+4) HIGHLIGHT MOMENTS (Purchase Drivers)
+   - List 8–12 moments: {{time_s, type (comeback|dominance|technical_exchange|intense_scramble|near_fall|submission_threat), why_it_hooks, suggested_thumbnail_time_s}}
+
+5) ENTERTAINMENT VALUE
+   - rewatch_value_10 (would fans watch this again?)
+   - Segments who will love this: technique_nerds | domination_fans | stamina_fans | balanced_fans
+
+6) MATCH STRUCTURE & PACING
+   - Narrative arc: opening → mid-match → finish (1–2 sentences each)
+   - pacing_curve: {{early_10, mid_10, late_10}} — how fast/slow each segment feels
+
+7) PRODUCTION QUALITY & PRESENTATION
+   - capture_rating_10 (1=unwatchable, 10=broadcast-quality)
+   - Camera, lighting, audio observations (mat slaps, breathing, grunts)
+   - 2–3 quick improvements
+
+8) SALES COPY KIT (Conversion-focused)
+   - titles: 3 punchy titles (≤70 chars each)
+   - descriptions: 2 compelling 2-sentence descriptions (store-ready)
+   - bullets: 5 selling points emphasizing intensity, skill, chemistry, physique appeal (safe, non-explicit)
+   - cta: "Watch the full match to see [dramatic hook]." {f'({cta_url})' if cta_url else '(no URL)'}
+   - buyer_tags: 5–8 tags like "back-and-forth", "technical", "alpha-energy", "dominant-display", "lean-vs-muscular", etc.
+
+IMPORTANT GUARDRAILS:
+- Avoid explicit sexual description; describe heat and intensity without graphic details
+- Do not invent identities; use only visible/audible information
+- Use seconds for all timestamps
+- Language should be persuasive, honest, and tailored to gay male amateur grappling fans (ages 20–60)
+
+At the end, output [BEGIN JSON] followed by a JSON object with these keys:
+{{
+  "intensity_10": int,
+  "competitiveness_10": int,
+  "momentum_shifts": [{{"start_s": int, "end_s": int, "who_led": "A|B|even", "why": "string"}}],
+  "technical_rating_10": int,
+  "techniques": [{{"name": "string", "type": "takedown|control|transition|pin|escape|submission", "difficulty_5": int, "cleanliness": "crisp|gritty", "effectiveness": "high|mid|low", "start_s": int, "end_s": int}}],
+  "style": "folkstyle|freestyle|submission grappling|mixed|pro-style elements",
+  "physiques": [{{"descriptor": "lean|muscular|stocky|athletic", "definition_5": int, "conditioning_5": int, "gear_notes": "string"}}],
+  "heat_factor_5": int,
+  "highlight_moments": [{{"time_s": int, "type": "comeback|dominance|technical_exchange|intense_scramble|near_fall|submission_threat", "why_it_hooks": "string", "suggested_thumbnail_time_s": int}}],
+  "rewatch_value_10": int,
+  "pacing_curve": {{"early_10": int, "mid_10": int, "late_10": int}},
+  "capture_rating_10": int,
+  "titles": ["string"],
+  "descriptions": ["string"],
+  "bullets": ["string"],
+  "cta": "string",
+  "buyer_tags": ["string"]
+}}
+[END JSON]"""
+
+    if mode == "generic":
+        return core_summary
+    elif mode == "wrestling":
+        return f"You are a specialist analyst of amateur grappling and wrestling videos. {wrestling_report}"
+    else:  # both
+        return f"""You are a specialist analyst of amateur grappling and wrestling videos. Your task is to produce two detailed parts:\n\n{core_summary}\n\n{wrestling_report}"""
+
+
+def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out: str = None, mime_type: str = None, cta_url: str = None):
     """Analyze video with Gemini 2.5 Pro with progress tracking."""
     
     printer = ProgressPrinter()
@@ -235,16 +324,27 @@ def analyze_video_gemini(video_path, api_key=None):
             avg_speed = total / elapsed if elapsed > 0 else 0
             printer.println(f"Upload complete in {_human_duration(elapsed)} at {_human_rate(avg_speed)} avg")
 
-    # Try to upload with tracked file; fallback to direct path if library doesn't support file objects
+    # Detect or use provided mime type
+    detected_mime = mime_type
+    if not detected_mime:
+        detected_mime, _ = mimetypes.guess_type(video_path)
+    if not detected_mime:
+        detected_mime = "video/mp4"  # Default fallback
+    
+    # Always use direct path upload to avoid IOBase mime_type issues
     try:
-        with open(video_path, 'rb') as raw:
-            tracked = TrackedFile(raw, total_bytes, on_upload_progress)
-            video_file = genai.upload_file(tracked)
-    except (TypeError, AttributeError):
-        # Fallback: library doesn't accept file-like objects; use direct path
-        printer.println("Using direct upload (no progress tracking available)")
-        video_file = genai.upload_file(path=video_path)
+        video_file = genai.upload_file(
+            path=video_path,
+            mime_type=detected_mime,
+            display_name=os.path.basename(video_path),
+            resumable=True
+        )
         upload_end = time.monotonic()
+    except Exception as e:
+        printer.println(f"Upload failed: {e}")
+        if "mime" in str(e).lower():
+            printer.println(f"Hint: Use --mime-type to explicitly specify the video MIME type (e.g., 'video/mp4')")
+        raise
     
     printer.println(f"Uploaded: {video_file.name}")
 
@@ -284,28 +384,24 @@ def analyze_video_gemini(video_path, api_key=None):
         print(f"Video processing failed: {video_file.state}")
         sys.exit(1)
 
-    print("Analyzing video with Gemini 2.5 Pro...")
+    print(f"Analyzing video with Gemini 2.5 Pro ({mode} mode)...")
 
     # Create model
     model = genai.GenerativeModel("models/gemini-2.5-pro")
 
-    # Analyze video
-    prompt = """Analyze this video thoroughly and provide:
-
-1. **Overall Summary**: What happens in the video from start to finish
-2. **Key Scenes**: Describe the main scenes and transitions
-3. **People/Subjects**: Who or what is featured
-4. **Actions**: What activities or events occur
-5. **Setting**: Where does this take place
-6. **Tone/Style**: The mood and presentation style
-
-Be detailed, direct, and descriptive."""
+    # Build and execute prompt
+    prompt = _build_prompt(mode=mode, cta_url=cta_url)
 
     try:
         response = _generate_with_retry(model, [video_file, prompt])
 
         print("\n" + "=" * 60)
-        print("VIDEO ANALYSIS")
+        if mode == "generic":
+            print("VIDEO ANALYSIS")
+        elif mode == "wrestling":
+            print("WRESTLING ANALYSIS")
+        else:
+            print("VIDEO ANALYSIS (HYBRID)")
         print("=" * 60 + "\n")
         print(response.text)
 
@@ -313,10 +409,26 @@ Be detailed, direct, and descriptive."""
         output_file = Path(video_path).stem + "_gemini_analysis.txt"
         with open(output_file, 'w') as f:
             f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
+            if mode in ["wrestling", "both"]:
+                f.write("(with WRESTLING SALES REPORT)\n")
             f.write("=" * 60 + "\n\n")
             f.write(response.text)
 
         print(f"\n\nAnalysis saved to: {output_file}")
+        
+        # Extract and save JSON if present
+        if "[BEGIN JSON]" in response.text and "[END JSON]" in response.text:
+            json_start = response.text.find("[BEGIN JSON]") + len("[BEGIN JSON]")
+            json_end = response.text.find("[END JSON]")
+            json_str = response.text[json_start:json_end].strip()
+            try:
+                json_data = json.loads(json_str)
+                json_output_file = json_out or (Path(video_path).stem + "_analysis.json")
+                with open(json_output_file, 'w') as jf:
+                    json.dump(json_data, jf, indent=2)
+                print(f"Analysis JSON saved to: {json_output_file}")
+            except json.JSONDecodeError as e:
+                print(f"Warning: Could not parse JSON block: {e}")
     finally:
         # Cleanup uploaded file
         try:
@@ -328,12 +440,30 @@ Be detailed, direct, and descriptive."""
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Analyze videos with Google Gemini 2.5 Pro"
+        description="Analyze videos with Google Gemini 2.5 Pro (with optional wrestling sales metrics)"
     )
     parser.add_argument("video", help="Path to video file")
     parser.add_argument(
         "--api-key",
         help="Google Gemini API key (or set GEMINI_API_KEY env var)"
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["generic", "wrestling", "both"],
+        default="both",
+        help="Analysis mode: generic (classic 6 categories), wrestling (sales metrics only), or both (default)"
+    )
+    parser.add_argument(
+        "--json-out",
+        help="Optional path to save extracted JSON separately (default: {video_stem}_analysis.json)"
+    )
+    parser.add_argument(
+        "--mime-type",
+        help="Override MIME type detection (e.g., 'video/mp4')"
+    )
+    parser.add_argument(
+        "--cta-url",
+        help="Optional URL to include in Sales Copy CTA (e.g., 'https://example.com/buy')"
     )
 
     args = parser.parse_args()
@@ -342,7 +472,14 @@ def main():
         print(f"Error: Video file not found: {args.video}")
         sys.exit(1)
 
-    analyze_video_gemini(args.video, api_key=args.api_key)
+    analyze_video_gemini(
+        args.video,
+        api_key=args.api_key,
+        mode=args.mode,
+        json_out=args.json_out,
+        mime_type=args.mime_type,
+        cta_url=args.cta_url
+    )
 
 
 if __name__ == "__main__":
