@@ -1,0 +1,303 @@
+================================================================================
+VIDEO EDITING GUIDE (Wrestling Conversion Focus) — GEMINI 2.5 PRO
+================================================================================
+
+Video: Match3Nocturmex25K
+Source: /Users/ppt04/Movies/Match3Nocturmex25K.mp4
+Duration: 00:20:40
+Generated: 2025-10-31 04:44:09
+Guide Version: 1.0.0
+
+================================================================================
+QUICKSTART FOR NEWBIES
+================================================================================
+
+How to apply these edits in DaVinci Resolve or Final Cut Pro:
+
+SLOW MOTION:
+  - Resolve: Right-click clip → Retime Controls → Speed → 50% (or 25%)
+  - FCP: Select clip → Retime menu → Slow → 50%
+
+ZOOM (Push-in):
+  - Resolve: Inspector → Transform → Zoom → Add keyframes (1.0 → 1.2)
+  - FCP: Select clip → Transform → Add keyframes to Scale
+
+SOUND EFFECTS (SFX):
+  - Layer SFX on separate audio track above natural sound
+  - Reduce natural sound by -3 to -6 dB during SFX (audio ducking)
+  - Common SFX: impact boom, whoosh, tension drone
+
+COLOR GRADING:
+  - Resolve: Color page → Apply LUT or adjust Contrast/Saturation
+  - FCP: Color Board → Increase contrast, warmth for dominance
+  - 'Punchy' = +10-20% contrast, slight saturation boost
+
+================================================================================
+TIMECODED EDITING RECOMMENDATIONS
+================================================================================
+
+[00:00:17 → 00:00:21] Initial Takedown (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.7, ramp=ease_in
+  • Sfx: type=body_impact_mat, level=-4
+
+WHY THIS WORKS FOR BUYERS:
+  Emphasizes the first major power move of the match. Slowing the impact highlights the force and control, establishing the initial Dominance & Power dynamic for the viewer.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Speed 70%
+  • Sound Library: add 'Mat Impact' SFX
+
+
+[00:00:35 → 00:00:39] First Submission Victory (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start=1.0, end=1.15, curve=ease_in
+  • Sfx: type=suspense_riser_short, level=-9
+
+WHY THIS WORKS FOR BUYERS:
+  Builds suspense around the first submission. The slow zoom focuses the viewer's attention on the hold and the tap-out, creating a satisfying payoff and a clear Victory Moment.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: keyframe Zoom 1.0->1.15
+  • Sound Library: add 'Riser' SFX
+
+
+[00:00:57 → 00:01:03] Aggressive Restart Takedown (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: entry_speed=120, slow_speed=60, exit_speed=100
+
+WHY THIS WORKS FOR BUYERS:
+  Showcases immediate re-engagement and dominance. The speed ramp adds a dynamic, aggressive feel to the takedown, reinforcing the Narrative Arc of one wrestler's control.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: create ramp 120-60-100
+
+
+[00:01:31 → 00:01:36] Pin Victory & Celebration (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start=1.0, end=1.1, curve=ease_in_out
+  • Color Grade: effect=vignette_subtle, contrast_boost=1.05
+
+WHY THIS WORKS FOR BUYERS:
+  Frames the pin as a definitive victory. The subtle zoom and vignette draw focus to the pin, while the contrast boost enhances the Physical Appeal and drama of the moment.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: keyframe Zoom 1.0->1.1
+  • Color Page: add Vignette, slightly increase Contrast
+
+
+[00:02:05 → 00:02:08] Dominant Victory Pose (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.5
+  • Crop Reframe: focus=winner_flexing
+
+WHY THIS WORKS FOR BUYERS:
+  A classic Dominance & Power shot. Slow motion glorifies the victory pose, emphasizing the winner's physique and control over the defeated opponent, a key driver for Physical Appeal.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Speed 50%
+  • Transform: adjust Y position to center the flex
+
+
+[00:02:12 → 00:02:18] Face Smother Submission (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start=1.0, end=1.2, curve=ease_in
+  • Sfx: type=muffled_breathing, level=-6
+
+WHY THIS WORKS FOR BUYERS:
+  Creates intense drama and a feeling of desperation. The zoom focuses on the struggle, and the muffled breathing SFX enhances the realism of the submission threat.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: keyframe Zoom 1.0->1.2
+  • Sound Library: add 'Muffled Breathing' SFX
+
+
+[00:03:00 → 00:03:04] Powerful Slam (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: entry_speed=100, slow_speed=50, exit_speed=100
+  • Sfx: type=heavy_slam, level=-2
+
+WHY THIS WORKS FOR BUYERS:
+  A pure display of Power & Impact. The speed ramp isolates the moment of impact, making the slam feel more powerful and visually satisfying for the buyer.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: create ramp 100-50-100
+  • Sound Library: add 'Slam' SFX
+
+
+[00:03:31 → 00:03:36] Chest Trample (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.6
+  • Zoom: start=1.1, end=1.0, curve=ease_out
+
+WHY THIS WORKS FOR BUYERS:
+  This is an ultimate display of Dominance. Slowing down the action and zooming out slightly gives the moment a cinematic, almost arrogant feel, which is a strong buyer hook.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Speed 60%
+  • Transform: keyframe Zoom 1.1->1.0
+
+
+[00:05:04 → 00:05:07] Surprise Takedown Reversal (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: entry_speed=100, slow_speed=70, exit_speed=120
+
+WHY THIS WORKS FOR BUYERS:
+  Highlights a key Momentum Shift. The speed ramp emphasizes the suddenness of the comeback, adding to the Narrative Arc and keeping the viewer engaged in the contest.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: create ramp 100-70-120
+
+
+[00:06:47 → 00:06:51] Desperate Escape (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start=1.2, end=1.0, curve=ease_out
+  • Audio Ducking: target=all, amount=-6
+  • Sfx: type=heartbeat_fast, level=-10
+
+WHY THIS WORKS FOR BUYERS:
+  Builds dramatic tension during a submission escape. The zoom out reveals the escape, while the heartbeat SFX externalizes the internal struggle, making the comeback more impactful.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: keyframe Zoom 1.2->1.0
+  • Sound Library: add 'Heartbeat' SFX
+
+
+[00:08:55 → 00:08:58] Athletic Leapfrog Takedown (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.5, ramp=ease_in_out
+
+WHY THIS WORKS FOR BUYERS:
+  Showcases Technical Mastery and athleticism. Slowing down this unique and explosive move allows the viewer to appreciate the skill involved, adding to the rewatchability.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: constant 50%
+
+
+[00:11:33 → 00:11:38] Rear Naked Choke Finish (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start=1.0, end=1.2, curve=ease_in
+  • Color Grade: effect=vignette_medium
+
+WHY THIS WORKS FOR BUYERS:
+  A classic submission finish that creates high drama. The zoom and vignette intensify the moment of the tap, providing a powerful payoff and reinforcing the winner's dominance.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: keyframe Zoom 1.0->1.2
+  • Color Page: add Vignette effect
+
+
+[00:13:46 → 00:13:50] Crucifix Pin Control (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.8
+
+WHY THIS WORKS FOR BUYERS:
+  Highlights a position of absolute control and Technical Mastery. The slow motion allows the viewer to see the mechanics of this dominant pin, appealing to those who appreciate wrestling IQ.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Speed 80%
+
+
+[00:16:37 → 00:16:41] Final Pin Victory (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: entry_speed=100, slow_speed=30, exit_speed=100
+  • Sfx: type=dramatic_hit, level=-5
+
+WHY THIS WORKS FOR BUYERS:
+  Marks the final, decisive moment of the match. The extreme speed ramp creates a 'final blow' effect, providing ultimate Payoff Satisfaction and a definitive end to the narrative.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: create ramp 100-30-100
+  • Sound Library: add 'Dramatic Hit' SFX
+
+
+[00:17:39 → 00:17:44] Post-Match Trample (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.4
+  • Color Grade: effect=contrast_boost, value=1.2
+
+WHY THIS WORKS FOR BUYERS:
+  The ultimate Victory Moment and display of Dominance. The extra slow motion and high contrast make this a powerful, memorable image that solidifies the winner's alpha status.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Speed 40%
+  • Color Page: increase Contrast to 1.2
+
+
+[00:18:12 → 00:18:16] Exhausted Collapse (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Audio Ducking: target=music, amount=-15
+  • Sfx: type=heavy_breathing_exhausted, level=-3
+
+WHY THIS WORKS FOR BUYERS:
+  Shows the physical toll of the match, enhancing the sense of realism and struggle. It highlights the Physical Appeal and effort, making the victory feel more earned.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Audio: keyframe volume on music track
+  • Sound Library: add 'Exhausted Breathing' SFX
+
+
+================================================================================
+FINAL CHECKLIST
+================================================================================
+
+Before exporting your edited match:
+  ☐ Open with high-impact moment (first 5 seconds hook)
+  ☐ Maintain rhythm: alternate tension/impact throughout
+  ☐ Ensure clarity on decisive moments (pins, taps, victory poses)
+  ☐ Audio: balance natural sound, SFX, and music (if added)
+  ☐ Color: consistent grade emphasizing athletic appeal
+  ☐ Pacing: no dead air longer than 10-15 seconds
+
+Export Settings (Recommended):
+  - Format: H.264 or H.265 (HEVC)
+  - Resolution: 1920x1080 or 3840x2160 (4K if source supports)
+  - Bitrate: 10-20 Mbps (1080p) or 40-60 Mbps (4K)
+  - Frame Rate: Match source (typically 30 or 60 fps)
+
+================================================================================
+MARKETING PRINCIPLES EMPHASIZED
+================================================================================
+
+  • Intensity & Drama
+  • Dominance & Power
+  • Technical Mastery
+  • Physical Appeal
+  • Narrative Arc
+  • Buyer Hooks
+
+================================================================================
+END OF GUIDE
+================================================================================
