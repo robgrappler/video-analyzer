@@ -213,6 +213,7 @@ def main():
     )
     parser.add_argument('--video-name', required=True, help='Video name (e.g., Match3Nocturmex25K)')
     parser.add_argument('--watchfighters-url', required=True, help='WatchFighters video URL')
+    parser.add_argument('--video-snippet-url', help='Optional: URL to video snippet for hero section (mp4, YouTube, Vimeo embed)')
     parser.add_argument('--path', help='Explicit path to analyzer folder')
     parser.add_argument('--publish', action='store_true', help='Publish immediately (default: draft)')
     parser.add_argument('--dry-run', action='store_true', help='Preview without creating')
@@ -265,7 +266,7 @@ def main():
                 print(f"🖼️ Found {len(thumbnail_files)} thumbnail images")
     
     # Build HTML without images first (for dry-run)
-    html_content = build_html_content(model, cta_url, branding)
+    html_content = build_html_content(model, cta_url, branding, video_url=args.video_snippet_url)
     
     # Dry run
     if args.dry_run:
@@ -364,7 +365,12 @@ def main():
         # Rebuild HTML with images and update page
         if hero_image_url or gallery_images:
             print("\n🔄 Updating page with images...")
-            html_content_with_images = build_html_content(model, cta_url, branding, hero_image_url, gallery_images)
+            html_content_with_images = build_html_content(
+                model, cta_url, branding, 
+                hero_image_url=hero_image_url, 
+                gallery_images=gallery_images,
+                video_url=args.video_snippet_url
+            )
             
             success, update_result = client.update_page(page_id, html_content_with_images)
             if success:

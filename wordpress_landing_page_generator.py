@@ -256,8 +256,8 @@ class WordPressClient:
 
 # ==================== CONTENT BUILDERS ====================
 
-def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_image_url: str = None, gallery_images: list = None) -> str:
-    """Build HTML fallback content."""
+def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_image_url: str = None, gallery_images: list = None, video_url: str = None) -> str:
+    """Build modern, conversion-focused HTML content with video support."""
     
     primary = branding.get('primary_color', '#E91E63')
     secondary = branding.get('secondary_color', '#000000')
@@ -270,40 +270,427 @@ def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_ima
     
     html = f"""
 <style>
-.lp-hero {{ background: linear-gradient(135deg, {primary}, {secondary}); color: white; padding: 60px 20px; text-align: center; }}
-.lp-hero h1 {{ font-size: 2.5em; margin-bottom: 20px; }}
-.lp-hero p {{ font-size: 1.2em; margin-bottom: 30px; }}
-.lp-badges {{ display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }}
-.lp-badge {{ background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; }}
-.lp-cta {{ display: inline-block; background: {primary}; color: white; padding: 15px 40px; text-decoration: none; border-radius: 5px; font-size: 1.2em; margin: 20px 0; }}
-.lp-section {{ max-width: 1200px; margin: 40px auto; padding: 0 20px; }}
-.lp-section h2 {{ color: {primary}; font-size: 2em; margin-bottom: 20px; }}
-.lp-highlights {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }}
-.lp-highlight {{ border-left: 4px solid {primary}; padding-left: 15px; }}
-.lp-tags {{ display: flex; gap: 10px; flex-wrap: wrap; }}
-.lp-tag {{ background: {secondary}; color: white; padding: 5px 15px; border-radius: 15px; font-size: 0.9em; }}
-.lp-hero-image {{ max-width: 100%; height: auto; border-radius: 10px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }}
-.lp-gallery {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0; }}
-.lp-gallery img {{ width: 100%; height: 200px; object-fit: cover; border-radius: 8px; cursor: pointer; transition: transform 0.2s; }}
-.lp-gallery img:hover {{ transform: scale(1.05); }}
+/* Modern Base Styles */
+* {{ box-sizing: border-box; }}
+
+/* Hero Section with Video Background */
+.lp-hero {{
+    position: relative;
+    background: linear-gradient(135deg, {primary}22 0%, {secondary}dd 100%);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    overflow: hidden;
+}}
+
+.lp-hero::before {{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, {primary}33 0%, transparent 60%);
+    pointer-events: none;
+}}
+
+.lp-hero-content {{
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+}}
+
+.lp-hero h1 {{
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    animation: fadeInUp 0.8s ease-out;
+}}
+
+.lp-hero p {{
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    margin-bottom: 30px;
+    opacity: 0.95;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}}
+
+/* Video Player Styles */
+.lp-video-container {{
+    position: relative;
+    max-width: 900px;
+    margin: 30px auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}}
+
+.lp-video-container video,
+.lp-video-container iframe {{
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    display: block;
+    border: none;
+}}
+
+.lp-hero-image {{
+    max-width: 900px;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin: 30px auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}}
+
+/* Modern Badges */
+.lp-badges {{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 30px 0;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}}
+
+.lp-badge {{
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}}
+
+.lp-badge:hover {{
+    background: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}}
+
+/* Modern CTA Buttons */
+.lp-cta {{
+    display: inline-block;
+    background: {primary};
+    color: white;
+    padding: 18px 48px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 20px 10px;
+    box-shadow: 0 8px 30px rgba(233, 30, 99, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}}
+
+.lp-cta::before {{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}}
+
+.lp-cta:hover {{
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(233, 30, 99, 0.5);
+}}
+
+.lp-cta:hover::before {{
+    width: 300px;
+    height: 300px;
+}}
+
+.lp-cta:active {{
+    transform: translateY(-1px);
+}}
+
+/* Section Styles */
+.lp-section {{
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}}
+
+.lp-section h2 {{
+    color: {primary};
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}}
+
+.lp-section h2::after {{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: {primary};
+    border-radius: 2px;
+}}
+
+.lp-section h3 {{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 30px 0 20px;
+    color: #333;
+}}
+
+/* Modern Highlights Grid */
+.lp-highlights {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}}
+
+.lp-highlight {{
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-left: 5px solid {primary};
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}}
+
+.lp-highlight:hover {{
+    transform: translateX(5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}}
+
+/* Modern Tags */
+.lp-tags {{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}}
+
+.lp-tag {{
+    background: linear-gradient(135deg, {primary} 0%, {secondary} 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}}
+
+.lp-tag:hover {{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}}
+
+/* Modern Gallery */
+.lp-gallery {{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}}
+
+.lp-gallery img {{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}}
+
+.lp-gallery img:hover {{
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+}}
+
+/* Match Details Cards */
+.lp-details-grid {{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}}
+
+.lp-detail-card {{
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-top: 4px solid {primary};
+    transition: all 0.3s ease;
+}}
+
+.lp-detail-card:hover {{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}}
+
+.lp-detail-card strong {{
+    color: {primary};
+    font-size: 1.1rem;
+}}
+
+/* Key Moments Timeline */
+.lp-timeline {{
+    position: relative;
+    padding-left: 30px;
+    margin: 30px 0;
+}}
+
+.lp-timeline::before {{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, {primary}, {secondary});
+    border-radius: 2px;
+}}
+
+.lp-timeline-item {{
+    position: relative;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}}
+
+.lp-timeline-item::before {{
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 25px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: {primary};
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px {primary};
+}}
+
+.lp-timeline-item:hover {{
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}}
+
+.lp-timestamp {{
+    display: inline-block;
+    background: {primary};
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}}
+
+/* Animations */
+@keyframes fadeInUp {{
+    from {{
+        opacity: 0;
+        transform: translateY(30px);
+    }}
+    to {{
+        opacity: 1;
+        transform: translateY(0);
+    }}
+}}
+
+/* Responsive Design */
+@media (max-width: 768px) {{
+    .lp-hero {{
+        padding: 60px 20px;
+    }}
+    
+    .lp-badges {{
+        gap: 10px;
+    }}
+    
+    .lp-badge {{
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }}
+    
+    .lp-cta {{
+        padding: 15px 35px;
+        font-size: 1rem;
+    }}
+    
+    .lp-timeline {{
+        padding-left: 20px;
+    }}
+    
+    .lp-video-container video,
+    .lp-video-container iframe {{
+        min-height: 250px;
+    }}
+}}
 </style>
 
 <!-- Hero Section -->
 <div class="lp-hero">
-    <h1>{title}</h1>
-    <p>{subtitle}</p>
-    {f'<img src="{hero_image_url}" alt="{title}" class="lp-hero-image">' if hero_image_url else ''}
-    <div class="lp-badges">
-        <div class="lp-badge">🔥 Heat: {model.heat_factor_5}/5</div>
-        <div class="lp-badge">⚔️ Intensity: {model.intensity_10}/10</div>
-        <div class="lp-badge">🧠 Technical: {model.technical_rating_10}/10</div>
+    <div class="lp-hero-content">
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
+        
+        <!-- Video or Image -->
+        """
+    
+    # Add video player if video_url is provided
+    if video_url:
+        # Check if it's an embed URL or direct video
+        if 'youtube.com' in video_url or 'vimeo.com' in video_url or 'watchfighters.com' in video_url:
+            html += f"""<div class="lp-video-container">
+            <iframe src="{video_url}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>"""
+        else:
+            html += f"""<div class="lp-video-container">
+            <video controls preload="metadata" poster="{hero_image_url if hero_image_url else ''}">
+                <source src="{video_url}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>"""
+    elif hero_image_url:
+        html += f'<img src="{hero_image_url}" alt="{title}" class="lp-hero-image">'
+    
+    html += f"""
+        
+        <div class="lp-badges">
+            <div class="lp-badge">🔥 Heat: {model.heat_factor_5}/5</div>
+            <div class="lp-badge">⚔️ Intensity: {model.intensity_10}/10</div>
+            <div class="lp-badge">🧠 Technical: {model.technical_rating_10}/10</div>
+        </div>
+        <a href="{cta_url}" class="lp-cta" target="_blank" rel="noopener">▶ Watch Full Match Now</a>
     </div>
-    <a href="{cta_url}" class="lp-cta" target="_blank">Watch on WatchFighters</a>
 </div>
 
 <!-- Sales Highlights -->
 <div class="lp-section">
-    <h2>What You'll See</h2>
+    <h2>What You'll Experience</h2>
     <div class="lp-highlights">
 """
     
@@ -317,58 +704,112 @@ def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_ima
 <!-- Match Details -->
 <div class="lp-section">
     <h2>Match Details</h2>
+    <div class="lp-details-grid">
 """
     
-    html += f"""    <p><strong>Style:</strong> {model.style.title()}</p>
-    <p><strong>Competitiveness:</strong> {model.competitiveness_10}/10</p>
-    <p><strong>Momentum Shifts:</strong> {len(model.momentum_shifts)} major turning points</p>
+    html += f"""        <div class="lp-detail-card">
+            <strong>Style</strong><br>
+            {model.style.title()}
+        </div>
+        <div class="lp-detail-card">
+            <strong>Competitiveness</strong><br>
+            {model.competitiveness_10}/10
+        </div>
+        <div class="lp-detail-card">
+            <strong>Momentum Shifts</strong><br>
+            {len(model.momentum_shifts)} major turns
+        </div>
+        <div class="lp-detail-card">
+            <strong>Rewatch Value</strong><br>
+            {model.rewatch_value_10}/10
+        </div>
+    </div>
 """
     
     # Add techniques
     if model.techniques:
-        html += "    <h3>Featured Techniques</h3>\n    <ul>\n"
+        html += """    <h3>Featured Techniques</h3>
+    <div class="lp-highlights">
+"""
         for tech in model.techniques[:8]:
-            html += f"        <li><strong>{tech.get('name', 'Unknown')}</strong> - {tech.get('type', 'technique')} (Difficulty: {tech.get('difficulty_5', 3)}/5)</li>\n"
-        html += "    </ul>\n"
+            html += f"""        <div class="lp-highlight">
+            <strong>{tech.get('name', 'Unknown')}</strong><br>
+            {tech.get('type', 'technique')} • Difficulty: {tech.get('difficulty_5', 3)}/5
+        </div>
+"""
+        html += "    </div>\n"
     
     html += "</div>\n\n"
     
-    # Highlight Moments
+    # Highlight Moments as Timeline
     if model.highlight_moments:
         html += """<div class="lp-section">
-    <h2>Key Moments</h2>
+    <h2>Key Moments Timeline</h2>
+    <div class="lp-timeline">
 """
         for moment in model.highlight_moments[:10]:
             timestamp = format_timestamp(moment.get('time_s', 0))
-            html += f"""    <div class="lp-highlight">
-        <strong>{timestamp}</strong> - {moment.get('type', 'moment').replace('_', ' ').title()}<br>
-        {moment.get('why_it_hooks', 'Intense action')}
-    </div>
+            moment_type = moment.get('type', 'moment').replace('_', ' ').title()
+            description = moment.get('why_it_hooks', 'Intense action')
+            html += f"""        <div class="lp-timeline-item">
+            <span class="lp-timestamp">{timestamp}</span>
+            <div><strong>{moment_type}</strong></div>
+            <div>{description}</div>
+        </div>
 """
-        html += "    <a href=\"" + cta_url + "\" class=\"lp-cta\" target=\"_blank\">Watch Full Match</a>\n"
-        
-        # Add image gallery if available
-        if gallery_images:
-            html += "    <h3 style='margin-top: 30px;'>Action Highlights</h3>\n"
-            html += "    <div class=\"lp-gallery\">\n"
-            for img in gallery_images[:8]:  # Show max 8 images
-                html += f"        <img src=\"{img['url']}\" alt=\"{img.get('caption', 'Match highlight')}\" loading=\"lazy\">\n"
-            html += "    </div>\n"
-        
-        html += "</div>\n\n"
+        html += """    </div>
+    <a href="" + cta_url + """ class="lp-cta" target="_blank" rel="noopener">🎬 Watch Full Match</a>
+</div>
+
+"""
+    
+    # Image gallery if available
+    if gallery_images:
+        html += """<div class="lp-section">
+    <h2>Action Highlights</h2>
+    <div class="lp-gallery">
+"""
+        for img in gallery_images[:9]:  # Show max 9 images
+            html += f"""        <img src="{img['url']}" alt="{img.get('caption', 'Match highlight')}" loading="lazy">
+"""
+        html += """    </div>
+</div>
+
+"""
     
     # Entertainment Value
     html += f"""<div class="lp-section">
-    <h2>Entertainment Value</h2>
-    <p><strong>Rewatch Value:</strong> {model.rewatch_value_10}/10</p>
-    <p><strong>Production Quality:</strong> {model.capture_rating_10}/10</p>
+    <h2>Entertainment Metrics</h2>
+    <div class="lp-details-grid">
+        <div class="lp-detail-card">
+            <strong>Rewatch Value</strong><br>
+            {model.rewatch_value_10}/10
+        </div>
+        <div class="lp-detail-card">
+            <strong>Production Quality</strong><br>
+            {model.capture_rating_10}/10
+        </div>
 """
     
     if model.pacing_curve:
-        html += f"""    <p><strong>Pacing:</strong> Early {model.pacing_curve.get('early_10', 7)}/10, Mid {model.pacing_curve.get('mid_10', 7)}/10, Late {model.pacing_curve.get('late_10', 8)}/10</p>
+        html += f"""        <div class="lp-detail-card">
+            <strong>Early Pacing</strong><br>
+            {model.pacing_curve.get('early_10', 7)}/10
+        </div>
+        <div class="lp-detail-card">
+            <strong>Mid Pacing</strong><br>
+            {model.pacing_curve.get('mid_10', 7)}/10
+        </div>
+        <div class="lp-detail-card">
+            <strong>Late Pacing</strong><br>
+            {model.pacing_curve.get('late_10', 8)}/10
+        </div>
 """
     
-    html += "</div>\n\n"
+    html += """    </div>
+</div>
+
+"""
     
     # Buyer Tags
     if model.buyer_tags:
@@ -385,8 +826,11 @@ def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_ima
     
     # Final CTA
     html += f"""<div class="lp-hero">
-    <h2>Ready to Watch?</h2>
-    <a href="{cta_url}" class="lp-cta" target="_blank">Get Access on WatchFighters</a>
+    <div class="lp-hero-content">
+        <h2>Ready to Watch This Epic Match?</h2>
+        <p>Get instant access on WatchFighters and experience every moment</p>
+        <a href="{cta_url}" class="lp-cta" target="_blank" rel="noopener">🔥 Watch Now on WatchFighters</a>
+    </div>
 </div>
 """
     

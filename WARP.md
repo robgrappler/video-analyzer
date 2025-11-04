@@ -8,7 +8,7 @@ This repository provides three video analysis tools:
 - Gemini Analyzer (gemini_analyzer.py): full-video analysis via Google Gemini 2.5 Pro with optional wrestling-specific sales metrics.
 - Gemini Thumbnails (gemini_thumbnails.py): identifies high-CTR moments and extracts frames, with wrestling-focused targeting.
 - Gemini Editing Guide (gemini_editing_guide.py): generates timecoded video editing recommendations optimized for wrestling buyer conversion.
-- Resolve Apply Edits (scripts/resolve_apply_edits.lua): DaVinci Resolve automation script to apply editing guide as markers.
+- Resolve Lua Apply Edits (scripts/resolve_lua_apply_edits.lua): DaVinci Resolve automation script to apply editing guide as markers.
 
 ## Architecture (big picture)
 
@@ -89,11 +89,11 @@ Run: Apply Editing Guide to DaVinci Resolve (Lua, via Fusion script interpreter)
 # Via environment variable
 export EDITING_GUIDE_JSON={{PATH_TO_EDITING_GUIDE_JSON}}
 "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/Libraries/Fusion/fuscript" \
-  -l lua scripts/resolve_apply_edits.lua [--project-name "My Project"] [--dry-run]
+  -l lua scripts/resolve_lua_apply_edits.lua [--project-name "My Project"] [--dry-run]
 
 # Or via --json argument
 "/Applications/DaVinci Resolve/DaVinci Resolve.app/Contents/Libraries/Fusion/fuscript" \
-  -l lua scripts/resolve_apply_edits.lua --json {{PATH_TO_EDITING_GUIDE_JSON}} \
+  -l lua scripts/resolve_lua_apply_edits.lua --json {{PATH_TO_EDITING_GUIDE_JSON}} \
   [--project-name "My Project"] [--color-preset MyColor] [--vignette-preset MyVignette] [--dry-run]
 
 # Check the run log (always generated)
@@ -108,13 +108,13 @@ Resolution API behavior (macOS):
 
 Notes
 - The local LLaVA-based analyzer has been removed.
-- Lua script entry: scripts/resolve_apply_edits.lua (compiled Python-to-Lua conversion for macOS Fusion compatibility).
+- Lua script entry: scripts/resolve_lua_apply_edits.lua (pure-Lua implementation for macOS Fusion compatibility; replaced Python version).
 
 ## Key file entry points
 - gemini_analyzer.py: main() sets up API key and calls analyze_video_gemini using "models/gemini-2.5-pro".
 - gemini_thumbnails.py: main() sets up API key and calls select_and_extract_thumbnails, which requests JSON via _generate_with_retry, extracts frames, and manages metadata.
 - gemini_editing_guide.py: main() loads marketing guide, builds prompt with JSON schema, uploads video, calls Gemini for editing recommendations, validates/normalizes JSON output, and generates both human-readable .txt and Resolve-friendly .json files.
-- scripts/resolve_apply_edits.lua: main() parses CLI args, reads editing guide JSON (with embedded pure-Lua parser), detects Resolve API availability, normalizes edits, creates/loads project, builds markers, and writes run log.
+- scripts/resolve_lua_apply_edits.lua: main() parses CLI args, reads editing guide JSON (with embedded pure-Lua parser), detects Resolve API availability, normalizes edits, creates/loads project, builds markers, and writes run log.
 
 ## Output conventions
 - Per-video folder under project root: ./{name}/
