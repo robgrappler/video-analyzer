@@ -1,0 +1,104 @@
+{
+  "thumbnails": [
+    {
+      "timestamp_seconds": 37.0,
+      "timestamp_hms": "00:00:37",
+      "reason": "A clear, tight triangle choke submission attempt is locked in, showing technical grappling skill and the vulnerability of the opponent.",
+      "suggested_caption": "He's trapped in a tight triangle choke.",
+      "label": "submission_threat",
+      "why_high_ctr": "The triangle choke is a classic submission that demonstrates flexibility and control, which is highly appealing to grappling fans.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_01_00-00-37.jpg"
+    },
+    {
+      "timestamp_seconds": 64.0,
+      "timestamp_hms": "00:01:04",
+      "reason": "This frame captures a powerful, smothering headlock pin attempt with intense chest-to-chest pressure, highlighting the dominant control of the top wrestler.",
+      "suggested_caption": "Crushing pressure from the top position.",
+      "label": "control",
+      "why_high_ctr": "The raw power and complete control in this chest-to-chest pin are visually compelling and represent a key aspect of wrestling dominance.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_02_00-01-04.jpg"
+    },
+    {
+      "timestamp_seconds": 92.0,
+      "timestamp_hms": "00:01:32",
+      "reason": "A dominant side control pin where the top wrestler is applying immense pressure, with the bottom wrestler's face showing the strain of the hold.",
+      "suggested_caption": "Nowhere to go from this heavy pin.",
+      "label": "near_fall",
+      "why_high_ctr": "This shot clearly communicates dominance and the struggle of being pinned, creating a moment of high tension.",
+      "crop_hint": "faces",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_03_00-01-32.jpg"
+    },
+    {
+      "timestamp_seconds": 138.0,
+      "timestamp_hms": "00:02:18",
+      "reason": "An assertive and dominant pin, with the top wrestler controlling his opponent's head while applying a smothering hold, showcasing complete control.",
+      "suggested_caption": "Total control and a humiliating pin.",
+      "label": "dominance",
+      "why_high_ctr": "The combination of a deep pin and the face grab creates a powerful image of dominance that is highly engaging.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_04_00-02-18.jpg"
+    },
+    {
+      "timestamp_seconds": 168.0,
+      "timestamp_hms": "00:02:48",
+      "reason": "This is a moment of intense struggle, showing a deep submission attempt (neck crank) with the bottom wrestler's face clearly in pain.",
+      "suggested_caption": "Can he survive this brutal neck crank?",
+      "label": "submission_threat",
+      "why_high_ctr": "The visible strain and pain on the opponent's face during a submission attempt create high drama and curiosity about the outcome.",
+      "crop_hint": "faces",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_05_00-02-48.jpg"
+    },
+    {
+      "timestamp_seconds": 277.0,
+      "timestamp_hms": "00:04:37",
+      "reason": "A visually interesting and dominant crucifix pin. The top wrestler has complete control, trapping both of his opponent's arms.",
+      "suggested_caption": "Trapped and pinned in a crucifix.",
+      "label": "near_fall",
+      "why_high_ctr": "The crucifix is a technical and visually impressive pinning combination that appeals to knowledgeable grappling fans.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_06_00-04-37.jpg"
+    },
+    {
+      "timestamp_seconds": 408.0,
+      "timestamp_hms": "00:06:48",
+      "reason": "The decisive moment of the match, capturing the final submission hold just as the opponent is forced to tap out.",
+      "suggested_caption": "Forced to tap out from the pressure.",
+      "label": "submission_threat",
+      "why_high_ctr": "The climax of a fight, the tap-out, is a definitive and satisfying moment that promises a clear resolution.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_07_00-06-48.jpg"
+    },
+    {
+      "timestamp_seconds": 459.0,
+      "timestamp_hms": "00:07:39",
+      "reason": "A clear display of dominance post-match, with the winner standing over his exhausted opponent who is lying defeated on the mat.",
+      "suggested_caption": "The victor stands over his defeated opponent.",
+      "label": "victory",
+      "why_high_ctr": "This frame establishes a clear power dynamic of winner and loser, a classic and compelling narrative in combat sports.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_08_00-07-39.jpg"
+    },
+    {
+      "timestamp_seconds": 480.0,
+      "timestamp_hms": "00:08:00",
+      "reason": "A classic victory pose. The winner kneels on the mat and flexes his biceps, showcasing his physique and celebrating his win.",
+      "suggested_caption": "Celebrating a hard-fought victory on the mat.",
+      "label": "victory",
+      "why_high_ctr": "The victory flex is an iconic and confident display of strength and success that is universally appealing.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_09_00-08-00.jpg"
+    },
+    {
+      "timestamp_seconds": 537.0,
+      "timestamp_hms": "00:08:57",
+      "reason": "An explosive and athletic takedown attempt, capturing the peak of the action as one wrestler leaps to tackle the other.",
+      "suggested_caption": "Explosive takedown attempt caught mid-air.",
+      "label": "scramble",
+      "why_high_ctr": "The dynamic, mid-air action freezes a moment of peak athleticism and aggression, creating an exciting and clickable image.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_10_00-08-57.jpg"
+    }
+  ]
+}

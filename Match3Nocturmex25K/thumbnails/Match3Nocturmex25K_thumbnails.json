@@ -1,0 +1,104 @@
+{
+  "thumbnails": [
+    {
+      "timestamp_seconds": 32.0,
+      "timestamp_hms": "00:00:32",
+      "reason": "A powerful side body lock demonstrates raw strength and control early in the match, with both wrestlers' muscles engaged.",
+      "suggested_caption": "Locked up tight from the start.",
+      "label": "control",
+      "why_high_ctr": "Shows immediate, powerful grappling control and muscular strain.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_01_00-00-32.jpg"
+    },
+    {
+      "timestamp_seconds": 37.0,
+      "timestamp_hms": "00:00:37",
+      "reason": "A quick and decisive leg lock submission ends the first round, with a clear tap-out visible.",
+      "suggested_caption": "He tapped out to the leg lock!",
+      "label": "submission_threat",
+      "why_high_ctr": "A sudden and painful-looking submission finish creates high drama.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_02_00-00-37.jpg"
+    },
+    {
+      "timestamp_seconds": 64.0,
+      "timestamp_hms": "00:01:04",
+      "reason": "A dominant, chest-to-chest pin attempt with the opponent completely flattened and struggling under heavy pressure.",
+      "suggested_caption": "Crushing pressure from the top position.",
+      "label": "near_fall",
+      "why_high_ctr": "Classic top control and pinning dominance is a core wrestling appeal.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_03_00-01-04.jpg"
+    },
+    {
+      "timestamp_seconds": 86.0,
+      "timestamp_hms": "00:01:26",
+      "reason": "A technical crucifix-style control completely neutralizes the opponent's arms, showcasing superior positioning and helplessness.",
+      "suggested_caption": "Trapped and helpless in a crucifix.",
+      "label": "control",
+      "why_high_ctr": "Highlights technical skill and a dominant, inescapable hold.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_04_00-01-26.jpg"
+    },
+    {
+      "timestamp_seconds": 138.0,
+      "timestamp_hms": "00:02:18",
+      "reason": "An intense face smother from the mount demonstrates a primal and overwhelming form of dominance, with the bottom man's struggle evident.",
+      "suggested_caption": "He can't breathe under that pressure.",
+      "label": "dominance",
+      "why_high_ctr": "Raw, intense dominance from a top position is highly engaging.",
+      "crop_hint": "faces",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_05_00-02-18.jpg"
+    },
+    {
+      "timestamp_seconds": 153.0,
+      "timestamp_hms": "00:02:33",
+      "reason": "A classic wrestling cradle stacks the opponent, putting immense pressure on his neck and back for a pin attempt.",
+      "suggested_caption": "Locked in a tight, powerful cradle.",
+      "label": "near_fall",
+      "why_high_ctr": "A traditional and powerful pinning combination is instantly recognizable to fans.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_06_00-02-33.jpg"
+    },
+    {
+      "timestamp_seconds": 227.0,
+      "timestamp_hms": "00:03:47",
+      "reason": "A textbook pin attempt with heavy shoulder pressure, forcing the opponent's back to the mat and showing clear tension.",
+      "suggested_caption": "Nowhere to go, shoulders are flat.",
+      "label": "near_fall",
+      "why_high_ctr": "The clear tension of a near-fall situation is a peak moment in wrestling.",
+      "crop_hint": "upper_bodies",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_07_00-03-47.jpg"
+    },
+    {
+      "timestamp_seconds": 295.0,
+      "timestamp_hms": "00:04:55",
+      "reason": "A complex submission attempt trapping both an arm and a leg, showcasing flexibility and a painful-looking hold.",
+      "suggested_caption": "Twisted up in a painful submission.",
+      "label": "submission_threat",
+      "why_high_ctr": "An unusual and visually compelling submission hold sparks curiosity.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_08_00-04-55.jpg"
+    },
+    {
+      "timestamp_seconds": 375.0,
+      "timestamp_hms": "00:06:15",
+      "reason": "A classic rear-naked choke is sunk in deep, showing a clear end-of-match threat with visible strain on the defender's face.",
+      "suggested_caption": "The choke is locked in tight!",
+      "label": "submission_threat",
+      "why_high_ctr": "This iconic submission hold creates immediate drama and anticipation.",
+      "crop_hint": "faces",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_09_00-06-15.jpg"
+    },
+    {
+      "timestamp_seconds": 480.0,
+      "timestamp_hms": "00:08:00",
+      "reason": "A clear victory pose with the winner flexing his biceps over his exhausted and defeated opponent, asserting dominance.",
+      "suggested_caption": "Total domination and victory pose.",
+      "label": "victory",
+      "why_high_ctr": "A definitive display of dominance and victory is a powerful and satisfying image.",
+      "crop_hint": "full_body",
+      "image_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/thumbnails/thumb_10_00-08-00.jpg"
+    }
+  ]
+}

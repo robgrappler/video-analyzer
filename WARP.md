@@ -51,11 +51,13 @@ export GEMINI_API_KEY={{GEMINI_API_KEY}}
 ```
 
 Progress Tracking (to stderr):
-- **Upload progress**: `Uploading: 12.5 MB / 150 MB (8.3 MB/s)` updates in real-time
+- **Upload progress**: `Upload complete in X at Y avg` summary after upload (completion stats)
 - **Processing ETA**: `Processing... (elapsed: 45s, est. 2m remaining)` updates during Gemini analysis
 - Heuristic ETA uses file size and upload duration to estimate processing time
 - If actual processing exceeds 90% of estimate, ETA adapts upward to avoid misleading remaining time
 - Final lines: `Upload complete in X at Y avg` and `Processing complete in Z`
+
+This behavior now applies to Analyzer, Thumbnails, and Editing Guide.
 
 Run: Thumbnail Extraction
 ```bash
@@ -84,6 +86,7 @@ Notes
 - gemini_editing_guide.py: main() loads marketing guide, builds prompt with JSON schema, uploads video, calls Gemini for editing recommendations, validates/normalizes JSON output, and generates both human-readable .txt and Resolve-friendly .json files.
 
 ## Output conventions
-- Gemini Analysis: {name}_gemini_analysis.txt labeled "GEMINI 2.5 PRO VIDEO ANALYSIS".
-- Gemini Thumbnails: {name}_thumbnails/ directory with extracted frames, {name}_thumbnails.json with metadata, and appended section in {name}_gemini_analysis.txt.
-- Gemini Editing Guide: {name}_editing_guide.txt with quickstart instructions and timecoded recommendations; {name}_editing_guide.json with Resolve-friendly structured data (v1: informational, future: automation-ready).
+- Per-video folder under project root: ./{name}/
+  - analysis/{name}_gemini_analysis.txt labeled "GEMINI 2.5 PRO VIDEO ANALYSIS" (+ optional analysis/{name}_analysis.json)
+  - thumbnails/ extracted frames and thumbnails/{name}_thumbnails.json; thumbnails section appended to analysis/{name}_gemini_analysis.txt
+  - editing_guide/{name}_editing_guide.txt and editing_guide/{name}_editing_guide.json

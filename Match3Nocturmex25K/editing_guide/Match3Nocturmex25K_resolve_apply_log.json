@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-11-04T11:12:38.711965",
+  "json_source": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/editing_guide/Match3Nocturmex25K_editing_guide.json",
+  "project_name": "Match3Nocturmex25K_autoedit",
+  "timeline": "T1",
+  "fps": 30,
+  "dry_run": false,
+  "color_preset": "PunchyContrast",
+  "vignette_preset": "VignetteMedium",
+  "edits": [
+    {
+      "id": "E008",
+      "label": "Match Finish: Exhaustion & KO",
+      "type": "speed_ramp",
+      "start": "00:18:12",
+      "end": "00:18:21",
+      "start_f": 32760,
+      "end_f": 33030,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "todo:audio_ducking",
+        "todo:sfx",
+        "apply:speed_ramp (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E007",
+      "label": "Power Reversal & Takedown",
+      "type": "speed_ramp",
+      "start": "00:14:00",
+      "end": "00:14:07",
+      "start_f": 25200,
+      "end_f": 25410,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "todo:sfx",
+        "apply:speed_ramp (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E006",
+      "label": "Choke Threat: Rear Naked Choke",
+      "type": "zoom",
+      "start": "00:11:15",
+      "end": "00:11:21",
+      "start_f": 20250,
+      "end_f": 20430,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "apply:zoom (v1 best-effort; may require manual)",
+        "apply:vignette (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E005",
+      "label": "Dominance Display: Chest Stand",
+      "type": "slow_motion",
+      "start": "00:07:58",
+      "end": "00:08:03",
+      "start_f": 14340,
+      "end_f": 14490,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "todo:sfx",
+        "apply:slow_motion (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E004",
+      "label": "Submission Threat: Foot Lock Scramble",
+      "type": "crop_reframe",
+      "start": "00:06:31",
+      "end": "00:06:41",
+      "start_f": 11730,
+      "end_f": 12030,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "todo:audio_ducking",
+        "apply:crop_reframe (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E003",
+      "label": "Technical Reversal into Pinning Combo",
+      "type": "speed_ramp",
+      "start": "00:03:31",
+      "end": "00:03:48",
+      "start_f": 6330,
+      "end_f": 6840,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "apply:speed_ramp (v1 best-effort; may require manual)",
+        "apply:color_grade (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E002",
+      "label": "Round 2: Dominant Takedown & Control",
+      "type": "slow_motion",
+      "start": "00:00:57",
+      "end": "00:01:12",
+      "start_f": 1710,
+      "end_f": 2160,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "apply:slow_motion (v1 best-effort; may require manual)",
+        "apply:zoom (v1 best-effort; may require manual)"
+      ]
+    },
+    {
+      "id": "E001",
+      "label": "Round 1: Takedown to Crucifix Pin",
+      "type": "speed_ramp",
+      "start": "00:00:17",
+      "end": "00:00:38",
+      "start_f": 510,
+      "end_f": 1140,
+      "status": "planned_markers_only_v1",
+      "actions": [
+        "marker:start"
+      ],
+      "warnings": [],
+      "todos": [
+        "todo:sfx",
+        "apply:speed_ramp (v1 best-effort; may require manual)",
+        "apply:slow_motion (v1 best-effort; may require manual)"
+      ]
+    }
+  ],
+  "notes": {
+    "audio_ops": "Skipped in v1; TODO markers added for sfx/audio_ducking",
+    "visual_ops": "Markers added. Visual effects are left as TODOs in v1 unless implemented later."
+  }
+}

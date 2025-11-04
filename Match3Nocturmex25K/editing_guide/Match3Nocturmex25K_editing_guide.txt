@@ -1,0 +1,191 @@
+================================================================================
+VIDEO EDITING GUIDE (Wrestling Conversion Focus) — GEMINI 2.5 PRO
+================================================================================
+
+Video: Match3Nocturmex25K
+Source: /Users/ppt04/Movies/Match3Nocturmex25K.mp4
+Duration: 00:20:40
+Generated: 2025-10-31 13:44:14
+Guide Version: 1.0.0
+
+================================================================================
+QUICKSTART FOR NEWBIES
+================================================================================
+
+How to apply these edits in DaVinci Resolve or Final Cut Pro:
+
+SLOW MOTION:
+  - Resolve: Right-click clip → Retime Controls → Speed → 50% (or 25%)
+  - FCP: Select clip → Retime menu → Slow → 50%
+
+ZOOM (Push-in):
+  - Resolve: Inspector → Transform → Zoom → Add keyframes (1.0 → 1.2)
+  - FCP: Select clip → Transform → Add keyframes to Scale
+
+SOUND EFFECTS (SFX):
+  - Layer SFX on separate audio track above natural sound
+  - Reduce natural sound by -3 to -6 dB during SFX (audio ducking)
+  - Common SFX: impact boom, whoosh, tension drone
+
+COLOR GRADING:
+  - Resolve: Color page → Apply LUT or adjust Contrast/Saturation
+  - FCP: Color Board → Increase contrast, warmth for dominance
+  - 'Punchy' = +10-20% contrast, slight saturation boost
+
+================================================================================
+TIMECODED EDITING RECOMMENDATIONS
+================================================================================
+
+[00:00:17 → 00:00:38] Round 1: Takedown to Crucifix Pin (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:00:18', 'speed': 100}, {'time': '00:00:19', 'speed': 50}, {'time': '00:00:21', 'speed': 100}]
+  • Slow Motion: factor=0.6, start_offset_s=18, end_offset_s=21
+  • Sfx: type=low_thud, time=00:00:36, volume_db=-8
+
+WHY THIS WORKS FOR BUYERS:
+  Highlights the initial power exchange and the surprising technical reversal. The slow motion on the pin emphasizes the sudden shift in dominance and the match-ending technique, creating a dramatic opening hook.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Keyframe speed 100% -> 50% -> 100% around the takedown.
+  • Retime Control: Set speed to 60% from 00:00:35 to 00:00:38.
+  • Add SFX on Audio Track 2 at 00:00:36.
+
+
+[00:00:57 → 00:01:12] Round 2: Dominant Takedown & Control (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.7, ramp=ease_in
+  • Zoom: start_zoom=1.0, end_zoom=1.15, ease=ease_out
+
+WHY THIS WORKS FOR BUYERS:
+  Emphasizes the power and control of the takedown. The slow zoom builds tension and focuses the viewer on the dominant wrestler's control, appealing to fans of physical overpowering.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Control: Set speed to 70%.
+  • Transform: Keyframe Zoom from 1.0 to 1.15 over the clip duration.
+
+
+[00:03:31 → 00:03:48] Technical Reversal into Pinning Combo (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:03:31', 'speed': 100}, {'time': '00:03:33', 'speed': 60}, {'time': '00:03:36', 'speed': 100}]
+  • Color Grade: effect=increase_contrast, value=1.2
+
+WHY THIS WORKS FOR BUYERS:
+  The speed ramp highlights the speed and precision of the reversal. Increased contrast makes the sweat and muscle definition more prominent, enhancing the physical intensity of the struggle.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Keyframe speed changes.
+  • Color Page: Increase Contrast node to 1.200.
+
+
+[00:06:31 → 00:06:41] Submission Threat: Foot Lock Scramble (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Crop Reframe: zoom=1.4, y_offset=-150
+  • Audio Ducking: target=music/ambient, duck_by_db=-12, focus=breathing/grunts
+
+WHY THIS WORKS FOR BUYERS:
+  A tight crop focuses attention on the technical details of the submission, creating suspense. Ducking the audio to highlight the sounds of struggle makes the moment more visceral and intense.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: Zoom to 1.4 and adjust Y position to frame the legs.
+  • Fairlight Page: Automate volume on music track to dip, raise dialogue/sfx track.
+
+
+[00:07:58 → 00:08:03] Dominance Display: Chest Stand (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.5
+  • Sfx: type=low_rumble, volume_db=-10
+
+WHY THIS WORKS FOR BUYERS:
+  This is a peak dominance moment. Slow motion and a subtle rumble SFX amplify the weight and impact of the action, creating a powerful visual that hooks viewers who appreciate displays of control and victory.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Control: Set speed to 50%.
+  • Add a low-frequency sound effect on a new audio track.
+
+
+[00:11:15 → 00:11:21] Choke Threat: Rear Naked Choke (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start_zoom=1.0, end_zoom=1.25, ease=ease_in_out
+  • Vignette: softness=0.8, size=0.6
+
+WHY THIS WORKS FOR BUYERS:
+  The slow zoom and vignette draw the viewer's eye directly to the choke, heightening the sense of claustrophobia and danger. This classic submission threat is a major point of tension and a key selling point.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: Keyframe zoom.
+  • Color Page: Add an oval Power Window, invert, and lower the Gamma outside the window.
+
+
+[00:14:00 → 00:14:07] Power Reversal & Takedown (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:14:00', 'speed': 100}, {'time': '00:14:02', 'speed': 40}, {'time': '00:14:04', 'speed': 100}]
+  • Sfx: type=heavy_slam, time=00:14:03, volume_db=-6
+
+WHY THIS WORKS FOR BUYERS:
+  This edit emphasizes a massive display of strength. The speed ramp slows down the peak of the lift and the impact, making the move feel more powerful and dramatic. It's a perfect 'wow' moment for a trailer.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Create a 'U' shape to slow down the middle of the action.
+  • Add a 'slam' SFX on Audio Track 2, synced with the impact.
+
+
+[00:18:12 → 00:18:21] Match Finish: Exhaustion & KO (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:18:12', 'speed': 100}, {'time': '00:18:14', 'speed': 30}, {'time': '00:18:16', 'speed': 100}]
+  • Audio Ducking: target=all, duck_by_db=-20, focus=impact_sfx
+  • Sfx: type=dull_thud_and_ring_out, time=00:18:14
+
+WHY THIS WORKS FOR BUYERS:
+  Maximizes the drama of the finish. The extreme slow-motion on the final blow, combined with muted audio and a sharp impact sound, creates a cinematic and definitive conclusion, providing a satisfying payoff for the viewer.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Drastic speed drop at 00:18:14.
+  • Fairlight Page: Automate a sharp volume drop on A1, add knockout SFX on A2.
+
+
+================================================================================
+FINAL CHECKLIST
+================================================================================
+
+Before exporting your edited match:
+  ☐ Open with high-impact moment (first 5 seconds hook)
+  ☐ Maintain rhythm: alternate tension/impact throughout
+  ☐ Ensure clarity on decisive moments (pins, taps, victory poses)
+  ☐ Audio: balance natural sound, SFX, and music (if added)
+  ☐ Color: consistent grade emphasizing athletic appeal
+  ☐ Pacing: no dead air longer than 10-15 seconds
+
+Export Settings (Recommended):
+  - Format: H.264 or H.265 (HEVC)
+  - Resolution: 1920x1080 or 3840x2160 (4K if source supports)
+  - Bitrate: 10-20 Mbps (1080p) or 40-60 Mbps (4K)
+  - Frame Rate: Match source (typically 30 or 60 fps)
+
+================================================================================
+MARKETING PRINCIPLES EMPHASIZED
+================================================================================
+
+  • Intensity & Competitiveness
+  • Technical Mastery
+  • Dominance & Submission Threats
+  • Narrative Arc
+
+================================================================================
+END OF GUIDE
+================================================================================

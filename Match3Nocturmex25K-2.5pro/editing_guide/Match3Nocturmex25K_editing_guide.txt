@@ -1,0 +1,243 @@
+================================================================================
+VIDEO EDITING GUIDE (Wrestling Conversion Focus) — GEMINI 2.5 PRO
+================================================================================
+
+Video: Match3Nocturmex25K
+Source: /Users/ppt04/Movies/Match3Nocturmex25K.mp4
+Duration: 00:20:40
+Generated: 2025-10-31 07:41:24
+Guide Version: 1.0.0
+
+================================================================================
+QUICKSTART FOR NEWBIES
+================================================================================
+
+How to apply these edits in DaVinci Resolve or Final Cut Pro:
+
+SLOW MOTION:
+  - Resolve: Right-click clip → Retime Controls → Speed → 50% (or 25%)
+  - FCP: Select clip → Retime menu → Slow → 50%
+
+ZOOM (Push-in):
+  - Resolve: Inspector → Transform → Zoom → Add keyframes (1.0 → 1.2)
+  - FCP: Select clip → Transform → Add keyframes to Scale
+
+SOUND EFFECTS (SFX):
+  - Layer SFX on separate audio track above natural sound
+  - Reduce natural sound by -3 to -6 dB during SFX (audio ducking)
+  - Common SFX: impact boom, whoosh, tension drone
+
+COLOR GRADING:
+  - Resolve: Color page → Apply LUT or adjust Contrast/Saturation
+  - FCP: Color Board → Increase contrast, warmth for dominance
+  - 'Punchy' = +10-20% contrast, slight saturation boost
+
+================================================================================
+TIMECODED EDITING RECOMMENDATIONS
+================================================================================
+
+[00:00:18 → 00:00:23] Opening Takedown & Scramble (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:00:18', 'speed': 100}, {'time': '00:00:19', 'speed': 60}, {'time': '00:00:21', 'speed': 60}, {'time': '00:00:22', 'speed': 100}]
+  • Sfx: sound=body_impact_mat, volume_db=-5, time=00:00:19
+
+WHY THIS WORKS FOR BUYERS:
+  Establishes the initial aggression and power dynamic. Slowing the impact emphasizes the physicality and competitive balance, hooking viewers who value intense, realistic grappling.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Keyframe speed ramp
+  • Add SFX to A2 at impact point
+
+
+[00:00:34 → 00:00:39] Triangle Choke Submission Threat (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start_zoom=1.0, end_zoom=1.15, ease=ease_in_out
+  • Sfx: sound=low_heartbeat, volume_db=-12, loop=True
+
+WHY THIS WORKS FOR BUYERS:
+  Builds suspense and highlights a technical submission attempt. The slow zoom and heartbeat SFX create a sense of urgency and drama, appealing to fans who enjoy the 'chess match' aspect and high-stakes moments.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: Keyframe Zoom from 1.0 to 1.15
+  • Add 'Heartbeat' SFX on A2 for duration
+
+
+[00:01:32 → 00:01:37] Dominant Pin & Victory Pose (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.7, start_time=00:01:34
+  • Color Grade: effect=increase_saturation, value=1.1
+
+WHY THIS WORKS FOR BUYERS:
+  Provides a clear payoff and reinforces the winner's dominance. The slow-motion victory pose creates a powerful, memorable image that satisfies the narrative arc and appeals to fans of 'alpha' displays.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 70% from pin count
+  • Color Page: Increase Saturation slider to ~55
+
+
+[00:02:24 → 00:02:29] Rear Naked Choke Attempt (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Crop Reframe: focus=close_up_on_hold, zoom=1.3
+  • Vignette: softness=0.8, size=0.6
+
+WHY THIS WORKS FOR BUYERS:
+  Focuses viewer attention on the danger of the submission. The tight crop and vignette eliminate distractions, amplifying the feeling of claustrophobia and tension, which is a major hook for submission-focused fans.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: Zoom to 1.3 and reframe on the choke
+  • OpenFX: Add Vignette, adjust size and softness
+
+
+[00:04:45 → 00:04:51] Kimura Lock Submission Attempt (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.6
+  • Sfx: sound=joint_stress_creak, volume_db=-8
+
+WHY THIS WORKS FOR BUYERS:
+  Highlights a technical and painful-looking submission. Slow motion allows viewers to appreciate the mechanics of the hold, while the SFX adds a visceral layer of impact, appealing to both 'Technique Nerds' and those drawn to physical intensity.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 60%
+  • Add 'Joint Stress' SFX on A2
+
+
+[00:06:31 → 00:06:38] Dominant Foot on Chest Pose (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Speed Ramp: points=[{'time': '00:06:31', 'speed': 100}, {'time': '00:06:33', 'speed': 50}, {'time': '00:06:36', 'speed': 50}, {'time': '00:06:37', 'speed': 100}]
+
+WHY THIS WORKS FOR BUYERS:
+  A classic display of dominance. Slowing down the moment the foot is placed and held on the chest creates a powerful, iconic image of victory and control that is highly convertible for 'Domination Fans'.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Curve: Create a slow-motion plateau for the pose
+
+
+[00:09:33 → 00:09:41] Pinfall and Mutual Exhaustion (Intensity: 4/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Audio Ducking: target_volume_db=-15, fade_duration_s=1.0
+  • Sfx: sound=heavy_breathing_exhausted, volume_db=-3, loop=True
+
+WHY THIS WORKS FOR BUYERS:
+  Showcases the physical toll of the match. Emphasizing the sounds of exhaustion makes the struggle feel more authentic and intense, reinforcing the high level of competition and effort.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Audio Track 1: Keyframe volume down
+  • Add 'Heavy Breathing' SFX on A2
+
+
+[00:11:15 → 00:11:21] Intense Rear Naked Choke Battle (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start_zoom=1.0, end_zoom=1.2, ease=ease_in
+
+WHY THIS WORKS FOR BUYERS:
+  A critical moment of dominance and potential submission. The slow zoom builds tension and focuses on the struggle for control, highlighting the chemistry and 'alpha-vs-alpha' energy between the competitors.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Transform: Keyframe Zoom from 1.0 to 1.2 over the clip duration
+
+
+[00:13:45 → 00:13:52] Pin and Flex Victory Pose (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.5
+
+WHY THIS WORKS FOR BUYERS:
+  Another strong victory moment. Slow motion on the flex emphasizes the winner's physical conditioning and triumphant attitude, a powerful visual for buyers interested in muscular dominance and clear winners.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 50%
+
+
+[00:17:40 → 00:17:46] Trample/Foot on Neck Dominance (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Zoom: start_zoom=1.2, end_zoom=1.0, ease=ease_out
+  • Slow Motion: factor=0.8
+
+WHY THIS WORKS FOR BUYERS:
+  An ultimate display of dominance that is a significant purchase driver for a specific fan segment. The slow zoom-out reveals the full scene, making the moment feel more impactful and definitive.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 80%
+  • Transform: Keyframe Zoom from 1.2 to 1.0
+
+
+[00:18:41 → 00:18:47] Post-Match 'Heat' Moment (Intensity: 3/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.5
+  • Vignette: softness=0.9, size=0.7
+
+WHY THIS WORKS FOR BUYERS:
+  This moment has a high 'heat factor' due to the unexpected intimacy after a tough match. Slow motion and a soft vignette frame it as a significant character moment, appealing to viewers invested in the chemistry and dynamic between the wrestlers.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 50%
+  • OpenFX: Add a soft Vignette
+
+
+[00:20:00 → 00:20:06] Final Victorious Pose (Intensity: 5/5)
+--------------------------------------------------------------------------------
+
+TECHNIQUES:
+  • Slow Motion: factor=0.6
+  • Color Grade: effect=increase_contrast, value=1.1
+
+WHY THIS WORKS FOR BUYERS:
+  The final, definitive image of the victor. Enhancing this with slow motion and increased contrast makes the winner look more powerful and defined, providing a strong, satisfying conclusion to the match narrative.
+
+DAVINCI RESOLVE IMPLEMENTATION:
+  • Retime Controls: Set speed to 60%
+  • Color Page: Slightly increase Contrast slider
+
+
+================================================================================
+FINAL CHECKLIST
+================================================================================
+
+Before exporting your edited match:
+  ☐ Open with high-impact moment (first 5 seconds hook)
+  ☐ Maintain rhythm: alternate tension/impact throughout
+  ☐ Ensure clarity on decisive moments (pins, taps, victory poses)
+  ☐ Audio: balance natural sound, SFX, and music (if added)
+  ☐ Color: consistent grade emphasizing athletic appeal
+  ☐ Pacing: no dead air longer than 10-15 seconds
+
+Export Settings (Recommended):
+  - Format: H.264 or H.265 (HEVC)
+  - Resolution: 1920x1080 or 3840x2160 (4K if source supports)
+  - Bitrate: 10-20 Mbps (1080p) or 40-60 Mbps (4K)
+  - Frame Rate: Match source (typically 30 or 60 fps)
+
+================================================================================
+MARKETING PRINCIPLES EMPHASIZED
+================================================================================
+
+  • Intensity & Competitiveness
+  • Technical Mastery
+  • Physical Appeal & Conditioning
+  • Dominance & Submission Threats
+  • Narrative Arc (Clear Winner)
+
+================================================================================
+END OF GUIDE
+================================================================================

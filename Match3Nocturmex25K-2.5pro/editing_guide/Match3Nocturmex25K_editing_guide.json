@@ -1,0 +1,415 @@
+{
+  "guide_version": "1.0.0",
+  "video": {
+    "duration_hhmmss": "00:20:40",
+    "analysis_timestamp": "2025-10-31T07:31:41.756523",
+    "stem": "Match3Nocturmex25K",
+    "source_path": "/Users/ppt04/Movies/Match3Nocturmex25K.mp4",
+    "mime_type": "video/mp4"
+  },
+  "edits": [
+    {
+      "id": "E001",
+      "label": "Opening Takedown & Scramble",
+      "start": "00:00:18",
+      "end": "00:00:23",
+      "intensity_1_5": 3,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:00:18",
+                "speed": 100
+              },
+              {
+                "time": "00:00:19",
+                "speed": 60
+              },
+              {
+                "time": "00:00:21",
+                "speed": 60
+              },
+              {
+                "time": "00:00:22",
+                "speed": 100
+              }
+            ]
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "sound": "body_impact_mat",
+            "volume_db": -5,
+            "time": "00:00:19"
+          }
+        }
+      ],
+      "why_this_works": "Establishes the initial aggression and power dynamic. Slowing the impact emphasizes the physicality and competitive balance, hooking viewers who value intense, realistic grappling.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Retime Curve: Keyframe speed ramp",
+          "Add SFX to A2 at impact point"
+        ]
+      }
+    },
+    {
+      "id": "E002",
+      "label": "Triangle Choke Submission Threat",
+      "start": "00:00:34",
+      "end": "00:00:39",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.0,
+            "end_zoom": 1.15,
+            "ease": "ease_in_out"
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "sound": "low_heartbeat",
+            "volume_db": -12,
+            "loop": true
+          }
+        }
+      ],
+      "why_this_works": "Builds suspense and highlights a technical submission attempt. The slow zoom and heartbeat SFX create a sense of urgency and drama, appealing to fans who enjoy the 'chess match' aspect and high-stakes moments.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Transform: Keyframe Zoom from 1.0 to 1.15",
+          "Add 'Heartbeat' SFX on A2 for duration"
+        ]
+      }
+    },
+    {
+      "id": "E003",
+      "label": "Dominant Pin & Victory Pose",
+      "start": "00:01:32",
+      "end": "00:01:37",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.7,
+            "start_time": "00:01:34"
+          }
+        },
+        {
+          "type": "color_grade",
+          "parameters": {
+            "effect": "increase_saturation",
+            "value": 1.1
+          }
+        }
+      ],
+      "why_this_works": "Provides a clear payoff and reinforces the winner's dominance. The slow-motion victory pose creates a powerful, memorable image that satisfies the narrative arc and appeals to fans of 'alpha' displays.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Controls: Set speed to 70% from pin count",
+          "Color Page: Increase Saturation slider to ~55"
+        ]
+      }
+    },
+    {
+      "id": "E004",
+      "label": "Rear Naked Choke Attempt",
+      "start": "00:02:24",
+      "end": "00:02:29",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "crop_reframe",
+          "parameters": {
+            "focus": "close_up_on_hold",
+            "zoom": 1.3
+          }
+        },
+        {
+          "type": "vignette",
+          "parameters": {
+            "softness": 0.8,
+            "size": 0.6
+          }
+        }
+      ],
+      "why_this_works": "Focuses viewer attention on the danger of the submission. The tight crop and vignette eliminate distractions, amplifying the feeling of claustrophobia and tension, which is a major hook for submission-focused fans.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Transform: Zoom to 1.3 and reframe on the choke",
+          "OpenFX: Add Vignette, adjust size and softness"
+        ]
+      }
+    },
+    {
+      "id": "E005",
+      "label": "Kimura Lock Submission Attempt",
+      "start": "00:04:45",
+      "end": "00:04:51",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.6
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "sound": "joint_stress_creak",
+            "volume_db": -8
+          }
+        }
+      ],
+      "why_this_works": "Highlights a technical and painful-looking submission. Slow motion allows viewers to appreciate the mechanics of the hold, while the SFX adds a visceral layer of impact, appealing to both 'Technique Nerds' and those drawn to physical intensity.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Retime Controls: Set speed to 60%",
+          "Add 'Joint Stress' SFX on A2"
+        ]
+      }
+    },
+    {
+      "id": "E006",
+      "label": "Dominant Foot on Chest Pose",
+      "start": "00:06:31",
+      "end": "00:06:38",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:06:31",
+                "speed": 100
+              },
+              {
+                "time": "00:06:33",
+                "speed": 50
+              },
+              {
+                "time": "00:06:36",
+                "speed": 50
+              },
+              {
+                "time": "00:06:37",
+                "speed": 100
+              }
+            ]
+          }
+        }
+      ],
+      "why_this_works": "A classic display of dominance. Slowing down the moment the foot is placed and held on the chest creates a powerful, iconic image of victory and control that is highly convertible for 'Domination Fans'.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Curve: Create a slow-motion plateau for the pose"
+        ]
+      }
+    },
+    {
+      "id": "E007",
+      "label": "Pinfall and Mutual Exhaustion",
+      "start": "00:09:33",
+      "end": "00:09:41",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "audio_ducking",
+          "parameters": {
+            "target_volume_db": -15,
+            "fade_duration_s": 1.0
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "sound": "heavy_breathing_exhausted",
+            "volume_db": -3,
+            "loop": true
+          }
+        }
+      ],
+      "why_this_works": "Showcases the physical toll of the match. Emphasizing the sounds of exhaustion makes the struggle feel more authentic and intense, reinforcing the high level of competition and effort.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Audio Track 1: Keyframe volume down",
+          "Add 'Heavy Breathing' SFX on A2"
+        ]
+      }
+    },
+    {
+      "id": "E008",
+      "label": "Intense Rear Naked Choke Battle",
+      "start": "00:11:15",
+      "end": "00:11:21",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.0,
+            "end_zoom": 1.2,
+            "ease": "ease_in"
+          }
+        }
+      ],
+      "why_this_works": "A critical moment of dominance and potential submission. The slow zoom builds tension and focuses on the struggle for control, highlighting the chemistry and 'alpha-vs-alpha' energy between the competitors.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Transform: Keyframe Zoom from 1.0 to 1.2 over the clip duration"
+        ]
+      }
+    },
+    {
+      "id": "E009",
+      "label": "Pin and Flex Victory Pose",
+      "start": "00:13:45",
+      "end": "00:13:52",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.5
+          }
+        }
+      ],
+      "why_this_works": "Another strong victory moment. Slow motion on the flex emphasizes the winner's physical conditioning and triumphant attitude, a powerful visual for buyers interested in muscular dominance and clear winners.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Controls: Set speed to 50%"
+        ]
+      }
+    },
+    {
+      "id": "E010",
+      "label": "Trample/Foot on Neck Dominance",
+      "start": "00:17:40",
+      "end": "00:17:46",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.2,
+            "end_zoom": 1.0,
+            "ease": "ease_out"
+          }
+        },
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.8
+          }
+        }
+      ],
+      "why_this_works": "An ultimate display of dominance that is a significant purchase driver for a specific fan segment. The slow zoom-out reveals the full scene, making the moment feel more impactful and definitive.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Controls: Set speed to 80%",
+          "Transform: Keyframe Zoom from 1.2 to 1.0"
+        ]
+      }
+    },
+    {
+      "id": "E011",
+      "label": "Post-Match 'Heat' Moment",
+      "start": "00:18:41",
+      "end": "00:18:47",
+      "intensity_1_5": 3,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.5
+          }
+        },
+        {
+          "type": "vignette",
+          "parameters": {
+            "softness": 0.9,
+            "size": 0.7
+          }
+        }
+      ],
+      "why_this_works": "This moment has a high 'heat factor' due to the unexpected intimacy after a tough match. Slow motion and a soft vignette frame it as a significant character moment, appealing to viewers invested in the chemistry and dynamic between the wrestlers.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Controls: Set speed to 50%",
+          "OpenFX: Add a soft Vignette"
+        ]
+      }
+    },
+    {
+      "id": "E012",
+      "label": "Final Victorious Pose",
+      "start": "00:20:00",
+      "end": "00:20:06",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.6
+          }
+        },
+        {
+          "type": "color_grade",
+          "parameters": {
+            "effect": "increase_contrast",
+            "value": 1.1
+          }
+        }
+      ],
+      "why_this_works": "The final, definitive image of the victor. Enhancing this with slow motion and increased contrast makes the winner look more powerful and defined, providing a strong, satisfying conclusion to the match narrative.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Controls: Set speed to 60%",
+          "Color Page: Slightly increase Contrast slider"
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "marketing_refs": [
+      "Intensity & Competitiveness",
+      "Technical Mastery",
+      "Physical Appeal & Conditioning",
+      "Dominance & Submission Threats",
+      "Narrative Arc (Clear Winner)"
+    ],
+    "promo_cut_hint": "For a 30-second promo, use quick cuts of E001, E002, E005, E008, and E010, culminating in the victory pose from E012. Use speed ramps heavily to build excitement."
+  }
+}

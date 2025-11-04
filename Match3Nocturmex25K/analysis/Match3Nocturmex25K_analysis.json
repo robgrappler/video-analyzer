@@ -1,0 +1,223 @@
+{
+  "intensity_10": 8,
+  "competitiveness_10": 9,
+  "momentum_shifts": [
+    {
+      "start_s": 17,
+      "end_s": 36,
+      "who_led": "A",
+      "why": "A initiates a takedown and works for control, B is defending."
+    },
+    {
+      "start_s": 36,
+      "end_s": 41,
+      "who_led": "B",
+      "why": "B reverses the position and ends the scramble in a dominant pin-like hold, leading to A tapping out."
+    },
+    {
+      "start_s": 57,
+      "end_s": 103,
+      "who_led": "B",
+      "why": "B gets a quick takedown and controls A on the mat."
+    },
+    {
+      "start_s": 103,
+      "end_s": 133,
+      "who_led": "even",
+      "why": "A manages to reverse B, but B immediately scrambles to regain dominant side control."
+    },
+    {
+      "start_s": 217,
+      "end_s": 232,
+      "who_led": "A",
+      "why": "A gets a quick takedown and works a front headlock control."
+    },
+    {
+      "start_s": 232,
+      "end_s": 241,
+      "who_led": "B",
+      "why": "B reverses and ends up in a dominant pinning combination from the top."
+    },
+    {
+      "start_s": 396,
+      "end_s": 478,
+      "who_led": "B",
+      "why": "B reverses A's takedown, establishing a long top-ride that culminates in a pin after weathering multiple escape attempts."
+    }
+  ],
+  "technical_rating_10": 7,
+  "techniques": [
+    {
+      "name": "Front Headlock",
+      "type": "control",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "high",
+      "start_s": 21,
+      "end_s": 27
+    },
+    {
+      "name": "Crucifix Pin",
+      "type": "pin",
+      "difficulty_5": 4,
+      "cleanliness": "gritty",
+      "effectiveness": "high",
+      "start_s": 35,
+      "end_s": 38
+    },
+    {
+      "name": "Guillotine Choke attempt",
+      "type": "submission",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 101,
+      "end_s": 104
+    },
+    {
+      "name": "Side Control",
+      "type": "control",
+      "difficulty_5": 2,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 129,
+      "end_s": 133
+    },
+    {
+      "name": "Leg Scissor",
+      "type": "control",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 340,
+      "end_s": 350
+    },
+    {
+      "name": "Rear Naked Choke (No Hooks)",
+      "type": "submission",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 376,
+      "end_s": 385
+    },
+    {
+      "name": "Cradle",
+      "type": "pin",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 429,
+      "end_s": 437
+    },
+    {
+      "name": "Head and Arm Control",
+      "type": "control",
+      "difficulty_5": 2,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 440,
+      "end_s": 479
+    }
+  ],
+  "style": "mixed",
+  "physiques": [
+    {
+      "descriptor": "athletic",
+      "definition_5": 4,
+      "conditioning_5": 4,
+      "gear_notes": "Wears tight black compression shorts and socks, highlighting his well-defined legs. His tattooed arm and lean, muscular torso are constantly on display."
+    },
+    {
+      "descriptor": "stocky",
+      "definition_5": 3,
+      "conditioning_5": 4,
+      "gear_notes": "Wears snug, brightly colored American Eagle boxer briefs that leave little to the imagination. His powerful, thick build and hairy chest project raw strength."
+    }
+  ],
+  "heat_factor_5": 4,
+  "highlight_moments": [
+    {
+      "time_s": 35,
+      "type": "near_fall",
+      "why_it_hooks": "A shocking reversal leads to a crucifix pin that ends the first round almost as soon as it began.",
+      "suggested_thumbnail_time_s": 36
+    },
+    {
+      "time_s": 131,
+      "type": "dominance",
+      "why_it_hooks": "Victory pose: the bearded wrestler sits triumphantly on his opponent's chest, unwrapping his hand wraps.",
+      "suggested_thumbnail_time_s": 132
+    },
+    {
+      "time_s": 221,
+      "type": "intense_scramble",
+      "why_it_hooks": "A chaotic and powerful scramble shows both men using every ounce of strength to gain an advantage.",
+      "suggested_thumbnail_time_s": 224
+    },
+    {
+      "time_s": 376,
+      "type": "submission_threat",
+      "why_it_hooks": "The tattooed wrestler is caught in a tight rear naked choke, his face showing the strain as he fights to breathe and escape.",
+      "suggested_thumbnail_time_s": 379
+    },
+    {
+      "time_s": 447,
+      "type": "near_fall",
+      "why_it_hooks": "An incredibly tight pin attempt forces the bottom man to bridge desperately, his body contorted to avoid the loss.",
+      "suggested_thumbnail_time_s": 447
+    },
+    {
+      "time_s": 477,
+      "type": "dominance",
+      "why_it_hooks": "The moment of victory. After a grueling battle, one man finally pins the other, holding him down to prove his dominance.",
+      "suggested_thumbnail_time_s": 478
+    },
+    {
+      "time_s": 541,
+      "type": "playful roughhousing",
+      "why_it_hooks": "Even when exhausted, they can't resist one last playful takedown and pin.",
+      "suggested_thumbnail_time_s": 549
+    },
+    {
+      "time_s": 998,
+      "type": "technical_exchange",
+      "why_it_hooks": "A final, desperate submission attempt where bodies are tangled in a complex knot of limbs.",
+      "suggested_thumbnail_time_s": 1005
+    }
+  ],
+  "rewatch_value_10": 8,
+  "pacing_curve": {
+    "early_10": 9,
+    "mid_10": 7,
+    "late_10": 8
+  },
+  "capture_rating_10": 7,
+  "titles": [
+    "Raw Power vs. Tattooed Technique: A Grueling Grappling War",
+    "Pinned and Dominated: A Sweaty Mat Room Battle",
+    "He Fought Hard, But Tapped Out"
+  ],
+  "descriptions": [
+    "Two powerful wrestlers collide in a no-holds-barred grappling session. Watch as a tattooed technician battles a relentless powerhouse in a match defined by explosive scrambles and sheer determination.",
+    "This is raw, unedited wrestling at its most intense. Slick with sweat and breathing heavy, these two alphas trade brutal takedowns and dominant pins until only one man is left standing."
+  ],
+  "bullets": [
+    "Intense back-and-forth action from start to finish.",
+    "Witness a clash of styles: technical skill vs. raw, overwhelming power.",
+    "Crystal-clear audio captures every grunt, strain, and mat slap.",
+    "Impressive displays of stamina and conditioning from both muscular wrestlers.",
+    "Long, grinding grappling sequences with dominant holds and desperate escapes."
+  ],
+  "cta": "Watch the full match to see which of these two exhausted warriors comes out on top.",
+  "buyer_tags": [
+    "back-and-forth",
+    "submission grappling",
+    "dominant",
+    "sweaty",
+    "muscular",
+    "stocky vs athletic",
+    "intense wrestling",
+    "raw footage"
+  ]
+}

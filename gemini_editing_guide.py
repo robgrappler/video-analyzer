@@ -16,6 +16,10 @@ from datetime import datetime
 import google.generativeai as genai
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
 
+import threading
+from utils.progress import ProgressPrinter, human_duration, human_rate, initial_processing_estimate
+from utils.paths import get_output_paths
+
 
 def _human_time(seconds: float) -> str:
     """Convert seconds to HH:MM:SS format."""
@@ -467,6 +471,20 @@ def main():
         default=0.3,
         help="LLM temperature for deterministic output (default: 0.3)"
     )
+    parser.add_argument(
+        "--output-root",
+        help="Optional root directory for outputs (default: current working directory)",
+        default=None
+    )
+    parser.add_argument(
+        "--model",
+        default="models/gemini-2.5-pro",
+        help="Model name to use (e.g., 'models/gemini-1.5-pro')"
+    )
+    parser.add_argument(
+        "--file-id",
+        help="Reuse an already uploaded Gemini file id (e.g., 'files/abc123'); skips local upload"
+    )
     
     args = parser.parse_args()
     
@@ -486,6 +504,8 @@ def main():
         print("Error: GEMINI_API_KEY not set. Use --api-key or set GEMINI_API_KEY environment variable")
         sys.exit(1)
     
+    printer = ProgressPrinter()
+
     # Get video duration
     print("Analyzing video metadata...", file=sys.stderr)
     duration_seconds = get_video_duration(args.video)
@@ -520,35 +540,83 @@ def main():
     if not mime_type:
         mime_type = "video/mp4"
     
-    # Upload video
-    print(f"Uploading video to Gemini...", file=sys.stderr)
-    try:
-        video_file = genai.upload_file(
-            path=args.video,
-            mime_type=mime_type,
-            display_name=os.path.basename(args.video),
-            resumable=True
-        )
-        print(f"Uploaded: {video_file.name}", file=sys.stderr)
-    except Exception as e:
-        print(f"Error uploading video: {e}")
-        sys.exit(1)
-    
-    # Wait for processing
-    print("Processing video...", file=sys.stderr)
+    # Upload or reuse with timing
+    if args.file_id:
+        try:
+            video_file = genai.get_file(args.file_id)
+        except Exception as e:
+            print(f"Error retrieving file_id {args.file_id}: {e}")
+            sys.exit(1)
+        up_elapsed = 0.0
+        try:
+            total_bytes = os.path.getsize(args.video)
+        except Exception:
+            total_bytes = 0
+        printer.println(f"Using existing uploaded file: {video_file.name}")
+    else:
+        print(f"Uploading video to Gemini...", file=sys.stderr)
+        try:
+            total_bytes = os.path.getsize(args.video)
+        except Exception:
+            total_bytes = 0
+        upload_start = time.monotonic()
+
+        # Heartbeat to show upload activity
+        stop_event = threading.Event()
+        def _heartbeat():
+            while not stop_event.is_set():
+                elapsed_hb = time.monotonic() - upload_start
+                printer.update_line(f"Uploading... (elapsed: {human_duration(elapsed_hb)})")
+                time.sleep(1.0)
+        hb_thread = threading.Thread(target=_heartbeat, daemon=True)
+        hb_thread.start()
+
+        try:
+            video_file = genai.upload_file(
+                path=args.video,
+                mime_type=mime_type,
+                display_name=os.path.basename(args.video),
+                resumable=True
+            )
+        except Exception as e:
+            print(f"Error uploading video: {e}")
+            sys.exit(1)
+        finally:
+            stop_event.set()
+            try:
+                hb_thread.join(timeout=1.0)
+            except Exception:
+                pass
+            upload_end = time.monotonic()
+            up_elapsed = max(0.0, upload_end - upload_start)
+            avg_rate = (total_bytes / up_elapsed) if up_elapsed > 0 else 0
+            printer.println(f"Upload complete in {human_duration(up_elapsed)} at {human_rate(avg_rate)} avg")
+            printer.println(f"Uploaded: {video_file.name}")
+
+    # Wait for processing with ETA
+    printer.println("Processing video...")
+    est_total = initial_processing_estimate(total_bytes, upload_duration_s=up_elapsed)
+    start_time = time.monotonic()
     while video_file.state.name == "PROCESSING":
-        time.sleep(2)
+        elapsed = time.monotonic() - start_time
+        if elapsed >= est_total * 0.9:
+            est_total = max(est_total, elapsed * 1.25)
+        remaining = max(0.0, est_total - elapsed)
+        printer.update_line(f"Processing... (elapsed: {human_duration(elapsed)}, est. {human_duration(remaining)} remaining)")
+        time.sleep(1.0)
         video_file = genai.get_file(video_file.name)
     
     if video_file.state.name == "FAILED":
         print(f"Video processing failed: {video_file.state}")
         sys.exit(1)
     
+    total_elapsed = time.monotonic() - start_time
+    printer.println(f"Processing complete in {human_duration(total_elapsed)}")
     print("Video processed. Generating editing guide...", file=sys.stderr)
     
     # Generate editing guide
     try:
-        model = genai.GenerativeModel("models/gemini-2.5-pro")
+        model = genai.GenerativeModel(args.model)
         
         generation_config = {
             "temperature": args.temperature,
@@ -569,8 +637,9 @@ def main():
     finally:
         # Cleanup uploaded file
         try:
-            genai.delete_file(video_file.name)
-            print("Cleaned up uploaded video from Gemini", file=sys.stderr)
+            if not args.file_id:
+                genai.delete_file(video_file.name)
+                print("Cleaned up uploaded video from Gemini", file=sys.stderr)
         except Exception:
             pass
     
@@ -586,10 +655,11 @@ def main():
     data["video"]["duration_hhmmss"] = duration_hhmmss
     data["video"]["mime_type"] = mime_type
     
-    # Generate output files
+    # Generate output files in per-video folder
+    paths = get_output_paths(args.video, Path(args.output_root) if args.output_root else None)
     video_stem = Path(args.video).stem
-    json_path = f"{video_stem}_editing_guide.json"
-    txt_path = f"{video_stem}_editing_guide.txt"
+    json_path = paths["editing_json"]
+    txt_path = paths["editing_txt"]
     
     # Write JSON
     print(f"Writing JSON guide to {json_path}...", file=sys.stderr)

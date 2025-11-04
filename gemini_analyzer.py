@@ -15,8 +15,11 @@ import random
 import io
 import json
 import mimetypes
+import threading
+import subprocess
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
+from utils.paths import get_output_paths
 
 
 def _human_bytes(n: int) -> str:
@@ -288,7 +291,7 @@ At the end, output [BEGIN JSON] followed by a JSON object with these keys:
         return f"""You are a specialist analyst of amateur grappling and wrestling videos. Your task is to produce two detailed parts:\n\n{core_summary}\n\n{wrestling_report}"""
 
 
-def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out: str = None, mime_type: str = None, cta_url: str = None):
+def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out: str = None, mime_type: str = None, cta_url: str = None, output_root: Path = None, max_output_tokens: int = None, segment_duration_minutes: int = 0, file_id: str = None, model_name: str = "models/gemini-2.5-pro"):
     """Analyze video with Gemini 2.5 Pro with progress tracking and wrestling-specific modes."""
     
     printer = ProgressPrinter()
@@ -302,52 +305,69 @@ def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out:
         print("Error: GEMINI_API_KEY not set. Use --api-key or set GEMINI_API_KEY environment variable")
         sys.exit(1)
 
-    print(f"Uploading video: {video_path}")
-
-    # Get file size and track upload progress
-    try:
-        total_bytes = os.path.getsize(video_path)
-    except Exception:
-        total_bytes = 0
-    
-    upload_start = time.monotonic()
-    upload_end = None
-    
-    def on_upload_progress(bytes_read, total, speed):
-        """Callback for upload progress."""
-        progress_text = f"Uploading: {_human_bytes(bytes_read)} / {_human_bytes(total)} ({_human_rate(speed)})"
-        printer.update_line(progress_text)
-        if bytes_read == total:
-            # Upload complete
-            nonlocal upload_end
+    own_upload = True
+    if file_id:
+        try:
+            video_file = genai.get_file(file_id)
+        except Exception as e:
+            print(f"Error retrieving file_id {file_id}: {e}")
+            sys.exit(1)
+        upload_end = None
+        try:
+            total_bytes = os.path.getsize(video_path)
+        except Exception:
+            total_bytes = 0
+        own_upload = False
+        printer.println(f"Using existing uploaded file: {video_file.name}")
+    else:
+        print(f"Uploading video: {video_path}")
+        # Get file size
+        try:
+            total_bytes = os.path.getsize(video_path)
+        except Exception:
+            total_bytes = 0
+        upload_start = time.monotonic()
+        upload_end = None
+        # Detect or use provided mime type
+        detected_mime = mime_type
+        if not detected_mime:
+            detected_mime, _ = mimetypes.guess_type(video_path)
+        if not detected_mime:
+            detected_mime = "video/mp4"
+        # Heartbeat
+        stop_event = threading.Event()
+        def _heartbeat():
+            while not stop_event.is_set():
+                elapsed_hb = time.monotonic() - upload_start
+                printer.update_line(f"Uploading... (elapsed: {_human_duration(elapsed_hb)})")
+                time.sleep(1.0)
+        hb_thread = threading.Thread(target=_heartbeat, daemon=True)
+        hb_thread.start()
+        try:
+            video_file = genai.upload_file(
+                path=video_path,
+                mime_type=detected_mime,
+                display_name=os.path.basename(video_path),
+                resumable=True
+            )
             upload_end = time.monotonic()
+        except Exception as e:
+            printer.println(f"Upload failed: {e}")
+            if "mime" in str(e).lower():
+                printer.println("Hint: Use --mime-type to explicitly specify the video MIME type (e.g., 'video/mp4')")
+            raise
+        finally:
+            stop_event.set()
+            try:
+                hb_thread.join(timeout=1.0)
+            except Exception:
+                pass
+        # Upload summary
+        if upload_end:
             elapsed = upload_end - upload_start
-            avg_speed = total / elapsed if elapsed > 0 else 0
+            avg_speed = total_bytes / elapsed if elapsed > 0 else 0
             printer.println(f"Upload complete in {_human_duration(elapsed)} at {_human_rate(avg_speed)} avg")
-
-    # Detect or use provided mime type
-    detected_mime = mime_type
-    if not detected_mime:
-        detected_mime, _ = mimetypes.guess_type(video_path)
-    if not detected_mime:
-        detected_mime = "video/mp4"  # Default fallback
-    
-    # Always use direct path upload to avoid IOBase mime_type issues
-    try:
-        video_file = genai.upload_file(
-            path=video_path,
-            mime_type=detected_mime,
-            display_name=os.path.basename(video_path),
-            resumable=True
-        )
-        upload_end = time.monotonic()
-    except Exception as e:
-        printer.println(f"Upload failed: {e}")
-        if "mime" in str(e).lower():
-            printer.println(f"Hint: Use --mime-type to explicitly specify the video MIME type (e.g., 'video/mp4')")
-        raise
-    
-    printer.println(f"Uploaded: {video_file.name}")
+        printer.println(f"Uploaded: {video_file.name}")
 
     # Wait for processing with ETA
     printer.println("Processing video...")
@@ -385,56 +405,117 @@ def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out:
         print(f"Video processing failed: {video_file.state}")
         sys.exit(1)
 
-    print(f"Analyzing video with Gemini 2.5 Pro ({mode} mode)...")
+    print(f"Analyzing video with {model_name} ({mode} mode)...")
 
     # Create model
-    model = genai.GenerativeModel("models/gemini-2.5-pro")
+    model = genai.GenerativeModel(model_name)
 
-    # Build and execute prompt
-    prompt = _build_prompt(mode=mode, cta_url=cta_url)
+    # Save analysis to per-video folder
+    paths = get_output_paths(video_path, output_root)
+    output_file = paths["analysis_txt"]
 
     try:
-        response = _generate_with_retry(model, [video_file, prompt])
-
-        print("\n" + "=" * 60)
-        if mode == "generic":
-            print("VIDEO ANALYSIS")
-        elif mode == "wrestling":
-            print("WRESTLING ANALYSIS")
-        else:
-            print("VIDEO ANALYSIS (HYBRID)")
-        print("=" * 60 + "\n")
-        print(response.text)
-
-        # Save analysis
-        output_file = Path(video_path).stem + "_gemini_analysis.txt"
-        with open(output_file, 'w') as f:
-            f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
-            if mode in ["wrestling", "both"]:
-                f.write("(with WRESTLING SALES REPORT)\n")
-            f.write("=" * 60 + "\n\n")
-            f.write(response.text)
-
-        print(f"\n\nAnalysis saved to: {output_file}")
+        gen_config = {"max_output_tokens": int(max_output_tokens)} if max_output_tokens else None
         
-        # Extract and save JSON if present
-        if "[BEGIN JSON]" in response.text and "[END JSON]" in response.text:
-            json_start = response.text.find("[BEGIN JSON]") + len("[BEGIN JSON]")
-            json_end = response.text.find("[END JSON]")
-            json_str = response.text[json_start:json_end].strip()
-            try:
-                json_data = json.loads(json_str)
-                json_output_file = json_out or (Path(video_path).stem + "_analysis.json")
-                with open(json_output_file, 'w') as jf:
-                    json.dump(json_data, jf, indent=2)
-                print(f"Analysis JSON saved to: {json_output_file}")
-            except json.JSONDecodeError as e:
-                print(f"Warning: Could not parse JSON block: {e}")
+        if segment_duration_minutes and segment_duration_minutes > 0:
+            # Determine duration via ffprobe
+            def _get_video_duration_seconds(p: str) -> float:
+                try:
+                    res = subprocess.run([
+                        "ffprobe", "-v", "error",
+                        "-select_streams", "v:0",
+                        "-show_entries", "format=duration",
+                        "-of", "default=noprint_wrappers=1:nokey=1",
+                        p
+                    ], capture_output=True, text=True, check=True)
+                    return float(res.stdout.strip())
+                except Exception:
+                    return 0.0
+            total_sec = _get_video_duration_seconds(video_path)
+            seg_len = max(60, int(segment_duration_minutes) * 60)
+            # Build segments
+            segments = []
+            start = 0
+            if total_sec > 0:
+                while start < total_sec:
+                    end = min(start + seg_len, total_sec)
+                    segments.append((start, end))
+                    start = end
+            else:
+                # Fallback: just run one segment if duration unknown
+                segments = [(0, seg_len)]
+            
+            # Write header
+            with open(output_file, 'w') as f:
+                f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
+                if mode in ["wrestling", "both"]:
+                    f.write("(with WRESTLING SALES REPORT)\n")
+                f.write("(SEGMENTED)\n")
+                f.write("=" * 60 + "\n\n")
+            
+            # Run per segment
+            for idx, (s, e) in enumerate(segments, 1):
+                seg_note = (
+                    f"LIMITED SCOPE SEGMENT\n"
+                    f"Analyze ONLY timestamps from {int(s)}s to {int(e)}s of the video.\n"
+                    f"Ignore other parts. Provide timecodes relative to the full video.\n"
+                )
+                prompt = seg_note + "\n\n" + _build_prompt(mode=mode, cta_url=cta_url)
+                print(f"Generating segment {idx}/{len(segments)}: {int(s)}s–{int(e)}s")
+                response = _generate_with_retry(model, [video_file, prompt], generation_config=gen_config)
+                
+                # Append segment output
+                with open(output_file, 'a') as f:
+                    f.write("\n" + "-" * 60 + "\n")
+                    f.write(f"SEGMENT {idx}: {int(s)}s–{int(e)}s\n")
+                    f.write("-" * 60 + "\n\n")
+                    f.write(response.text)
+            
+            print(f"\n\nAnalysis saved to: {output_file}")
+            # In segmented mode, skip JSON extraction/merge for now
+        else:
+            # Single-pass analysis
+            prompt = _build_prompt(mode=mode, cta_url=cta_url)
+            response = _generate_with_retry(model, [video_file, prompt], generation_config=gen_config)
+
+            print("\n" + "=" * 60)
+            if mode == "generic":
+                print("VIDEO ANALYSIS")
+            elif mode == "wrestling":
+                print("WRESTLING ANALYSIS")
+            else:
+                print("VIDEO ANALYSIS (HYBRID)")
+            print("=" * 60 + "\n")
+            print(response.text)
+
+            with open(output_file, 'w') as f:
+                f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
+                if mode in ["wrestling", "both"]:
+                    f.write("(with WRESTLING SALES REPORT)\n")
+                f.write("=" * 60 + "\n\n")
+                f.write(response.text)
+
+            print(f"\n\nAnalysis saved to: {output_file}")
+            
+            # Extract and save JSON if present
+            if "[BEGIN JSON]" in response.text and "[END JSON]" in response.text:
+                json_start = response.text.find("[BEGIN JSON]") + len("[BEGIN JSON]")
+                json_end = response.text.find("[END JSON]")
+                json_str = response.text[json_start:json_end].strip()
+                try:
+                    json_data = json.loads(json_str)
+                    json_output_file = Path(json_out) if json_out else paths["analysis_json"]
+                    with open(json_output_file, 'w') as jf:
+                        json.dump(json_data, jf, indent=2)
+                    print(f"Analysis JSON saved to: {json_output_file}")
+                except json.JSONDecodeError as e:
+                    print(f"Warning: Could not parse JSON block: {e}")
     finally:
         # Cleanup uploaded file
         try:
-            genai.delete_file(video_file.name)
-            print("Cleaned up uploaded video from Gemini")
+            if own_upload:
+                genai.delete_file(video_file.name)
+                print("Cleaned up uploaded video from Gemini")
         except Exception:
             pass
 
@@ -466,6 +547,32 @@ def main():
         "--cta-url",
         help="Optional URL to include in Sales Copy CTA (e.g., 'https://example.com/buy')"
     )
+    parser.add_argument(
+        "--output-root",
+        help="Optional root directory for outputs (default: current working directory)",
+        default=None
+    )
+    parser.add_argument(
+        "--max-output-tokens",
+        type=int,
+        default=None,
+        help="Optional cap for model output length (e.g., 4096 or 8192)"
+    )
+    parser.add_argument(
+        "--segment-duration",
+        type=int,
+        default=0,
+        help="Optional segment length in minutes (e.g., 10 for ~10-minute chunks). 0 = disabled"
+    )
+    parser.add_argument(
+        "--model",
+        default="models/gemini-2.5-pro",
+        help="Model name to use (e.g., 'models/gemini-1.5-pro')"
+    )
+    parser.add_argument(
+        "--file-id",
+        help="Reuse an already uploaded Gemini file id (e.g., 'files/abc123'); skips local upload"
+    )
 
     args = parser.parse_args()
 
@@ -479,7 +586,12 @@ def main():
         mode=args.mode,
         json_out=args.json_out,
         mime_type=args.mime_type,
-        cta_url=args.cta_url
+        cta_url=args.cta_url,
+        output_root=Path(args.output_root) if args.output_root else None,
+        max_output_tokens=args.max_output_tokens,
+        segment_duration_minutes=args.segment_duration,
+        file_id=args.file_id,
+        model_name=args.model
     )
 
 

@@ -44,7 +44,7 @@ def test_gemini_analyzer_success(tmp_path, monkeypatch):
     def configure(api_key=None):
         return None
 
-    def upload_file(path=None):
+    def upload_file(path=None, **kwargs):
         return FileStub("files/123", "PROCESSING")
 
     def get_file(name):
@@ -77,7 +77,7 @@ def test_gemini_analyzer_success(tmp_path, monkeypatch):
 
     gemini_analyzer.analyze_video_gemini(str(video_path), api_key="dummy")
 
-    out_file = tmp_path / "sample_gemini_analysis.txt"
+    out_file = tmp_path / "sample" / "analysis" / "sample_gemini_analysis.txt"
     assert out_file.exists()
     content = out_file.read_text()
     assert "GEMINI 2.5 PRO VIDEO ANALYSIS" in content

@@ -30,3 +30,10 @@ venv/
 # Temp/cache
 .cache/
 .tmp/
+
+# WordPress Landing Page Generator
+wordpress_config.yaml
+wordpress_ssh_config.yaml
+.env
+/tmp/*_content.html
+/tmp/*_elementor.json

@@ -1,0 +1,214 @@
+{
+  "intensity_10": 8,
+  "competitiveness_10": 7,
+  "momentum_shifts": [
+    {
+      "start_s": 17,
+      "end_s": 36,
+      "who_led": "A",
+      "why": "A secures the initial takedown and works from a front headlock."
+    },
+    {
+      "start_s": 37,
+      "end_s": 41,
+      "who_led": "B",
+      "why": "B reverses position and wins the first round with a quick submission."
+    },
+    {
+      "start_s": 57,
+      "end_s": 133,
+      "who_led": "B",
+      "why": "B scores a takedown and asserts heavy top control with pins and submission attempts."
+    },
+    {
+      "start_s": 337,
+      "end_s": 349,
+      "who_led": "A",
+      "why": "A initiates a new round with an explosive double leg takedown."
+    },
+    {
+      "start_s": 350,
+      "end_s": 703,
+      "who_led": "B",
+      "why": "B reverses A's takedown and begins a long, grueling period of top dominance, completely draining A's energy."
+    },
+    {
+      "start_s": 855,
+      "end_s": 934,
+      "who_led": "A",
+      "why": "A shows a final burst of energy with a takedown attempt and a brief scramble."
+    },
+    {
+      "start_s": 935,
+      "end_s": 1001,
+      "who_led": "B",
+      "why": "B capitalizes on A's exhaustion, securing a final, definitive pin."
+    }
+  ],
+  "technical_rating_10": 6,
+  "techniques": [
+    {
+      "name": "Double Leg Takedown",
+      "type": "takedown",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 18,
+      "end_s": 21
+    },
+    {
+      "name": "Side Control",
+      "type": "control",
+      "difficulty_5": 2,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 108,
+      "end_s": 112
+    },
+    {
+      "name": "Rear Naked Choke attempt",
+      "type": "submission",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 113,
+      "end_s": 124
+    },
+    {
+      "name": "Crucifix attempt",
+      "type": "submission",
+      "difficulty_5": 4,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 233,
+      "end_s": 242
+    },
+    {
+      "name": "North-South Choke attempt",
+      "type": "submission",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 243,
+      "end_s": 250
+    },
+    {
+      "name": "Arm Triangle Choke",
+      "type": "submission",
+      "difficulty_5": 4,
+      "cleanliness": "gritty",
+      "effectiveness": "high",
+      "start_s": 638,
+      "end_s": 649
+    },
+    {
+      "name": "Victory Trample",
+      "type": "pro-style elements",
+      "difficulty_5": 1,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 1059,
+      "end_s": 1070
+    }
+  ],
+  "style": "mixed",
+  "physiques": [
+    {
+      "descriptor": "athletic",
+      "definition_5": 3,
+      "conditioning_5": 3,
+      "gear_notes": "Black compression shorts, hand wraps, and a colorful tattoo sleeve on his left arm."
+    },
+    {
+      "descriptor": "stocky",
+      "definition_5": 2,
+      "conditioning_5": 5,
+      "gear_notes": "Blue patterned American Eagle boxer briefs, showcasing a hairy, powerful physique."
+    }
+  ],
+  "heat_factor_5": 4,
+  "highlight_moments": [
+    {
+      "time_s": 36,
+      "type": "comeback",
+      "why_it_hooks": "An instant reversal and submission shows B is not to be underestimated.",
+      "suggested_thumbnail_time_s": 36
+    },
+    {
+      "time_s": 103,
+      "type": "dominance",
+      "why_it_hooks": "B traps A in a powerful cradle, flexing his strength and control against the wall.",
+      "suggested_thumbnail_time_s": 104
+    },
+    {
+      "time_s": 218,
+      "type": "intense_scramble",
+      "why_it_hooks": "The intensity peaks as B playfully bites A's neck while maintaining a dominant position.",
+      "suggested_thumbnail_time_s": 219
+    },
+    {
+      "time_s": 419,
+      "type": "dominance",
+      "why_it_hooks": "B asserts total smothering control from the back, a clear display of one man breaking another's will.",
+      "suggested_thumbnail_time_s": 421
+    },
+    {
+      "time_s": 645,
+      "type": "submission_threat",
+      "why_it_hooks": "A is caught in a deep arm triangle, his face contorted in a desperate fight to escape the choke.",
+      "suggested_thumbnail_time_s": 647
+    },
+    {
+      "time_s": 890,
+      "type": "comeback",
+      "why_it_hooks": "A musters a final surge of strength for a surprising reversal, nearly pinning B late in the match.",
+      "suggested_thumbnail_time_s": 891
+    },
+    {
+      "time_s": 1000,
+      "type": "dominance",
+      "why_it_hooks": "The definitive end: B pins a completely spent A and poses, arms flexed in victory.",
+      "suggested_thumbnail_time_s": 1001
+    },
+    {
+      "time_s": 1063,
+      "type": "dominance",
+      "why_it_hooks": "As a final show of superiority, B stands over his defeated rival and presses his foot onto his chest.",
+      "suggested_thumbnail_time_s": 1066
+    }
+  ],
+  "rewatch_value_10": 8,
+  "pacing_curve": {
+    "early_10": 9,
+    "mid_10": 7,
+    "late_10": 8
+  },
+  "capture_rating_10": 7,
+  "titles": [
+    "Tattooed Muscle vs. Bearded Bear: A Grueling Submission War",
+    "He Bit His Neck: Intense No-Holds-Barred Grappling",
+    "Total Exhaustion: Who Breaks First in This Epic Takedown Battle?"
+  ],
+  "descriptions": [
+    "Two powerful rivals collide in a no-holds-barred grappling session that pushes them to their absolute limits. Watch as takedowns turn into desperate scrambles and one man's stamina is put to the ultimate test under relentless top pressure.",
+    "It starts as a technical exchange, but quickly becomes a sweaty, all-out war for dominance on the mats. This is raw, unfiltered grappling where every hold is a struggle and only the tougher man will walk away the winner."
+  ],
+  "bullets": [
+    "Witness a raw, high-intensity grappling battle from start to finish.",
+    "Features explosive takedowns, gritty scrambles, and punishing submission holds.",
+    "Feel the heat as two powerful, sweaty bodies fight for absolute control.",
+    "Athletic muscle is put to the test against a stocky, relentless powerhouse.",
+    "Clear, unfiltered audio captures every grunt, gasp, and smack on the mat."
+  ],
+  "cta": "Watch the full match to see who finally breaks under the crushing pressure.",
+  "buyer_tags": [
+    "submission grappling",
+    "intense wrestling",
+    "alpha vs alpha",
+    "bearded wrestler",
+    "tattooed muscle",
+    "dominant top",
+    "exhaustion",
+    "sweaty grappling"
+  ]
+}

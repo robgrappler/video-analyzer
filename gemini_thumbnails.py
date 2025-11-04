@@ -14,7 +14,12 @@ import re
 import subprocess
 import time
 import random
+import mimetypes
+import threading
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, DeadlineExceeded
+
+from utils.progress import ProgressPrinter, human_bytes, human_rate, human_duration, initial_processing_estimate
+from utils.paths import get_output_paths
 
 
 def _format_hms(seconds: float) -> str:
@@ -118,7 +123,7 @@ def _generate_with_retry(model, parts, generation_config=None, safety_settings=N
             continue
 
 
-def select_and_extract_thumbnails(video_path, api_key=None):
+def select_and_extract_thumbnails(video_path, api_key=None, output_root: Path = None, file_id: str = None, model_name: str = "models/gemini-2.5-pro"):
     # Configure API key
     if api_key:
         genai.configure(api_key=api_key)
@@ -128,23 +133,81 @@ def select_and_extract_thumbnails(video_path, api_key=None):
         print("Error: GEMINI_API_KEY not set. Use --api-key or set GEMINI_API_KEY environment variable")
         sys.exit(1)
 
-    print(f"Uploading video: {video_path}")
+    printer = ProgressPrinter()
 
-    # Upload video file with mime type
-    import mimetypes
-    mime_type, _ = mimetypes.guess_type(video_path)
-    video_file = genai.upload_file(
-        path=video_path,
-        mime_type=mime_type or "video/mp4",
-        display_name=os.path.basename(video_path),
-        resumable=True
-    )
-    print(f"Uploaded: {video_file.name}\nProcessing video...")
+    own_upload = True
+    if file_id:
+        try:
+            video_file = genai.get_file(file_id)
+        except Exception as e:
+            print(f"Error retrieving file_id {file_id}: {e}")
+            sys.exit(1)
+        own_upload = False
+        try:
+            total_bytes = os.path.getsize(video_path)
+        except Exception:
+            total_bytes = 0
+        elapsed = 0.0
+        printer.println(f"Using existing uploaded file: {video_file.name}")
+    else:
+        print(f"Uploading video: {video_path}")
+        # Upload video file with mime type and track timing
+        mime_type, _ = mimetypes.guess_type(video_path)
+        try:
+            total_bytes = os.path.getsize(video_path)
+        except Exception:
+            total_bytes = 0
 
-    # Wait for processing
-    while video_file.state.name == "PROCESSING":
-        time.sleep(2)
-        video_file = genai.get_file(video_file.name)
+        upload_start = time.monotonic()
+
+        # Heartbeat to show upload activity
+        stop_event = threading.Event()
+        def _heartbeat():
+            while not stop_event.is_set():
+                elapsed_hb = time.monotonic() - upload_start
+                printer.update_line(f"Uploading... (elapsed: {human_duration(elapsed_hb)})")
+                time.sleep(1.0)
+        hb_thread = threading.Thread(target=_heartbeat, daemon=True)
+        hb_thread.start()
+
+        try:
+            video_file = genai.upload_file(
+                path=video_path,
+                mime_type=mime_type or "video/mp4",
+                display_name=os.path.basename(video_path),
+                resumable=True
+            )
+        finally:
+            stop_event.set()
+            try:
+                hb_thread.join(timeout=1.0)
+            except Exception:
+                pass
+            upload_end = time.monotonic()
+            elapsed = max(0.0, upload_end - upload_start)
+            avg_speed = (total_bytes / elapsed) if elapsed > 0 else 0
+            printer.println(f"Upload complete in {human_duration(elapsed)} at {human_rate(avg_speed)} avg")
+
+        printer.println(f"Uploaded: {video_file.name}")
+    printer.println("Processing video...")
+
+    # Wait for processing with ETA
+    est_total = initial_processing_estimate(total_bytes, upload_duration_s=elapsed)
+    start_time = time.monotonic()
+    try:
+        while video_file.state.name == "PROCESSING":
+            elapsed_proc = time.monotonic() - start_time
+            if elapsed_proc >= est_total * 0.9:
+                est_total = max(est_total, elapsed_proc * 1.25)
+            remaining = max(0.0, est_total - elapsed_proc)
+            printer.update_line(f"Processing... (elapsed: {human_duration(elapsed_proc)}, est. {human_duration(remaining)} remaining)")
+            time.sleep(1.0)
+            video_file = genai.get_file(video_file.name)
+        total_elapsed = time.monotonic() - start_time
+        printer.println(f"Processing complete in {human_duration(total_elapsed)}")
+    except KeyboardInterrupt:
+        printer.println()
+        raise
 
     if video_file.state.name == "FAILED":
         print(f"Video processing failed: {video_file.state}")
@@ -153,7 +216,7 @@ def select_and_extract_thumbnails(video_path, api_key=None):
     print("Selecting thumbnails with Gemini 2.5 Pro...")
 
     # Create model
-    model = genai.GenerativeModel("models/gemini-2.5-pro")
+    model = genai.GenerativeModel(model_name)
 
     # Wrestling-focused thumbnail prompt
     thumb_prompt = """
@@ -245,15 +308,16 @@ Return ONLY JSON with this exact schema:
         if len(deduped) > 10:
             deduped = deduped[:10]
 
-        thumbs_dir = Path(video_path).parent / f"{Path(video_path).stem}_thumbnails"
+        paths = get_output_paths(video_path, output_root)
+        thumbs_dir = paths["thumbnails_dir"]
         for idx, c in enumerate(deduped, 1):
             out = _extract_frame(video_path, c["timestamp_seconds"], thumbs_dir, idx)
             c["image_path"] = str(out)
 
         # Append wrestling-focused thumbnail section to analysis file
-        output_file = Path(video_path).stem + "_gemini_analysis.txt"
-        exists = Path(output_file).exists()
-        with open(output_file, 'a' if exists else 'w') as f:
+        analysis_file = paths["analysis_txt"]
+        exists = analysis_file.exists()
+        with open(analysis_file, 'a' if exists else 'w') as f:
             if not exists:
                 f.write("GEMINI 2.5 PRO VIDEO ANALYSIS\n")
                 f.write("=" * 60 + "\n\n")
@@ -268,7 +332,7 @@ Return ONLY JSON with this exact schema:
                 f.write(f"[{c['timestamp_hms']}]{label} {c['image_path']}{cap}{ctr_hook}{crop}\n")
 
         # Save structured thumbnail data
-        meta_file = Path(video_path).stem + "_thumbnails.json"
+        meta_file = paths["thumbnails_json"]
         with open(meta_file, 'w') as jf:
             json.dump({"thumbnails": deduped}, jf, indent=2)
 
@@ -277,8 +341,9 @@ Return ONLY JSON with this exact schema:
     finally:
         # Cleanup uploaded file
         try:
-            genai.delete_file(video_file.name)
-            print("Cleaned up uploaded video from Gemini")
+            if own_upload:
+                genai.delete_file(video_file.name)
+                print("Cleaned up uploaded video from Gemini")
         except Exception:
             pass
 
@@ -292,6 +357,20 @@ def main():
         "--api-key",
         help="Google Gemini API key (or set GEMINI_API_KEY env var)"
     )
+    parser.add_argument(
+        "--output-root",
+        help="Optional root directory for outputs (default: current working directory)",
+        default=None
+    )
+    parser.add_argument(
+        "--model",
+        default="models/gemini-2.5-pro",
+        help="Model name to use (e.g., 'models/gemini-1.5-pro')"
+    )
+    parser.add_argument(
+        "--file-id",
+        help="Reuse an already uploaded Gemini file id (e.g., 'files/abc123'); skips local upload"
+    )
 
     args = parser.parse_args()
 
@@ -299,7 +378,13 @@ def main():
         print(f"Error: Video file not found: {args.video}")
         sys.exit(1)
 
-    select_and_extract_thumbnails(args.video, api_key=args.api_key)
+    select_and_extract_thumbnails(
+        args.video,
+        api_key=args.api_key,
+        output_root=Path(args.output_root) if args.output_root else None,
+        file_id=args.file_id,
+        model_name=args.model
+    )
 
 
 if __name__ == "__main__":

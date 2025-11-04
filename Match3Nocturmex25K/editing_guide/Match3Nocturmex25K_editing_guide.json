@@ -1,0 +1,346 @@
+{
+  "guide_version": "1.0.0",
+  "video": {
+    "duration_hhmmss": "00:20:40",
+    "analysis_timestamp": "2025-10-31T13:41:35.391329",
+    "stem": "Match3Nocturmex25K",
+    "source_path": "/Volumes/Predator SSD/movies/wrestling edits/Match3Nocturmex25K.mp4",
+    "mime_type": "video/mp4"
+  },
+  "edits": [
+    {
+      "id": "E001",
+      "label": "Round 1: Takedown to Crucifix Pin",
+      "start": "00:00:17",
+      "end": "00:00:38",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:00:18",
+                "speed": 100
+              },
+              {
+                "time": "00:00:19",
+                "speed": 50
+              },
+              {
+                "time": "00:00:21",
+                "speed": 100
+              }
+            ]
+          }
+        },
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.6,
+            "start_offset_s": 18,
+            "end_offset_s": 21
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "type": "low_thud",
+            "time": "00:00:36",
+            "volume_db": -8
+          }
+        }
+      ],
+      "why_this_works": "Highlights the initial power exchange and the surprising technical reversal. The slow motion on the pin emphasizes the sudden shift in dominance and the match-ending technique, creating a dramatic opening hook.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Retime Curve: Keyframe speed 100% -> 50% -> 100% around the takedown.",
+          "Retime Control: Set speed to 60% from 00:00:35 to 00:00:38.",
+          "Add SFX on Audio Track 2 at 00:00:36."
+        ]
+      }
+    },
+    {
+      "id": "E002",
+      "label": "Round 2: Dominant Takedown & Control",
+      "start": "00:00:57",
+      "end": "00:01:12",
+      "intensity_1_5": 3,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.7,
+            "ramp": "ease_in"
+          }
+        },
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.0,
+            "end_zoom": 1.15,
+            "ease": "ease_out"
+          }
+        }
+      ],
+      "why_this_works": "Emphasizes the power and control of the takedown. The slow zoom builds tension and focuses the viewer on the dominant wrestler's control, appealing to fans of physical overpowering.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Control: Set speed to 70%.",
+          "Transform: Keyframe Zoom from 1.0 to 1.15 over the clip duration."
+        ]
+      }
+    },
+    {
+      "id": "E003",
+      "label": "Technical Reversal into Pinning Combo",
+      "start": "00:03:31",
+      "end": "00:03:48",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:03:31",
+                "speed": 100
+              },
+              {
+                "time": "00:03:33",
+                "speed": 60
+              },
+              {
+                "time": "00:03:36",
+                "speed": 100
+              }
+            ]
+          }
+        },
+        {
+          "type": "color_grade",
+          "parameters": {
+            "effect": "increase_contrast",
+            "value": 1.2
+          }
+        }
+      ],
+      "why_this_works": "The speed ramp highlights the speed and precision of the reversal. Increased contrast makes the sweat and muscle definition more prominent, enhancing the physical intensity of the struggle.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Retime Curve: Keyframe speed changes.",
+          "Color Page: Increase Contrast node to 1.200."
+        ]
+      }
+    },
+    {
+      "id": "E004",
+      "label": "Submission Threat: Foot Lock Scramble",
+      "start": "00:06:31",
+      "end": "00:06:41",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "crop_reframe",
+          "parameters": {
+            "zoom": 1.4,
+            "y_offset": -150
+          }
+        },
+        {
+          "type": "audio_ducking",
+          "parameters": {
+            "target": "music/ambient",
+            "duck_by_db": -12,
+            "focus": "breathing/grunts"
+          }
+        }
+      ],
+      "why_this_works": "A tight crop focuses attention on the technical details of the submission, creating suspense. Ducking the audio to highlight the sounds of struggle makes the moment more visceral and intense.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Transform: Zoom to 1.4 and adjust Y position to frame the legs.",
+          "Fairlight Page: Automate volume on music track to dip, raise dialogue/sfx track."
+        ]
+      }
+    },
+    {
+      "id": "E005",
+      "label": "Dominance Display: Chest Stand",
+      "start": "00:07:58",
+      "end": "00:08:03",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "factor": 0.5
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "type": "low_rumble",
+            "volume_db": -10
+          }
+        }
+      ],
+      "why_this_works": "This is a peak dominance moment. Slow motion and a subtle rumble SFX amplify the weight and impact of the action, creating a powerful visual that hooks viewers who appreciate displays of control and victory.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Retime Control: Set speed to 50%.",
+          "Add a low-frequency sound effect on a new audio track."
+        ]
+      }
+    },
+    {
+      "id": "E006",
+      "label": "Choke Threat: Rear Naked Choke",
+      "start": "00:11:15",
+      "end": "00:11:21",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.0,
+            "end_zoom": 1.25,
+            "ease": "ease_in_out"
+          }
+        },
+        {
+          "type": "vignette",
+          "parameters": {
+            "softness": 0.8,
+            "size": 0.6
+          }
+        }
+      ],
+      "why_this_works": "The slow zoom and vignette draw the viewer's eye directly to the choke, heightening the sense of claustrophobia and danger. This classic submission threat is a major point of tension and a key selling point.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": [
+          "Transform: Keyframe zoom.",
+          "Color Page: Add an oval Power Window, invert, and lower the Gamma outside the window."
+        ]
+      }
+    },
+    {
+      "id": "E007",
+      "label": "Power Reversal & Takedown",
+      "start": "00:14:00",
+      "end": "00:14:07",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:14:00",
+                "speed": 100
+              },
+              {
+                "time": "00:14:02",
+                "speed": 40
+              },
+              {
+                "time": "00:14:04",
+                "speed": 100
+              }
+            ]
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "type": "heavy_slam",
+            "time": "00:14:03",
+            "volume_db": -6
+          }
+        }
+      ],
+      "why_this_works": "This edit emphasizes a massive display of strength. The speed ramp slows down the peak of the lift and the impact, making the move feel more powerful and dramatic. It's a perfect 'wow' moment for a trailer.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A2",
+        "effects_map": [
+          "Retime Curve: Create a 'U' shape to slow down the middle of the action.",
+          "Add a 'slam' SFX on Audio Track 2, synced with the impact."
+        ]
+      }
+    },
+    {
+      "id": "E008",
+      "label": "Match Finish: Exhaustion & KO",
+      "start": "00:18:12",
+      "end": "00:18:21",
+      "intensity_1_5": 5,
+      "edits": [
+        {
+          "type": "speed_ramp",
+          "parameters": {
+            "points": [
+              {
+                "time": "00:18:12",
+                "speed": 100
+              },
+              {
+                "time": "00:18:14",
+                "speed": 30
+              },
+              {
+                "time": "00:18:16",
+                "speed": 100
+              }
+            ]
+          }
+        },
+        {
+          "type": "audio_ducking",
+          "parameters": {
+            "target": "all",
+            "duck_by_db": -20,
+            "focus": "impact_sfx"
+          }
+        },
+        {
+          "type": "sfx",
+          "parameters": {
+            "type": "dull_thud_and_ring_out",
+            "time": "00:18:14"
+          }
+        }
+      ],
+      "why_this_works": "Maximizes the drama of the finish. The extreme slow-motion on the final blow, combined with muted audio and a sharp impact sound, creates a cinematic and definitive conclusion, providing a satisfying payoff for the viewer.",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1, A2",
+        "effects_map": [
+          "Retime Curve: Drastic speed drop at 00:18:14.",
+          "Fairlight Page: Automate a sharp volume drop on A1, add knockout SFX on A2."
+        ]
+      }
+    }
+  ],
+  "notes": {
+    "marketing_refs": [
+      "Intensity & Competitiveness",
+      "Technical Mastery",
+      "Dominance & Submission Threats",
+      "Narrative Arc"
+    ],
+    "promo_cut_hint": "For a promo, use E001, E005, E007, and E008. These show the key narrative points: a quick upset, a clear dominance display, a power comeback, and the final knockout. This creates a compelling 30-second story of the match."
+  }
+}

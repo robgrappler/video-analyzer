@@ -43,7 +43,7 @@ def test_gemini_thumbnails_extraction_and_metadata(tmp_path, monkeypatch):
     def configure(api_key=None):
         return None
 
-    def upload_file(path=None):
+    def upload_file(path=None, **kwargs):
         return FileStub("files/abc", "PROCESSING")
 
     def get_file(name):
@@ -94,12 +94,12 @@ def test_gemini_thumbnails_extraction_and_metadata(tmp_path, monkeypatch):
 
     gemini_thumbnails.select_and_extract_thumbnails(str(video_path), api_key="dummy")
 
-    thumbs_dir = tmp_path / "clip_thumbnails"
+    thumbs_dir = tmp_path / "clip" / "thumbnails"
     files = sorted(thumbs_dir.glob("*.jpg"))
     # Expect deduplication of 2.1s (within 3s of 2s) -> 3 images
     assert len(files) == 3
 
-    meta_file = tmp_path / "clip_thumbnails.json"
+    meta_file = tmp_path / "clip" / "thumbnails" / "clip_thumbnails.json"
     assert meta_file.exists()
     meta = json.loads(meta_file.read_text())
     assert "thumbnails" in meta and len(meta["thumbnails"]) == 3
@@ -107,6 +107,6 @@ def test_gemini_thumbnails_extraction_and_metadata(tmp_path, monkeypatch):
     for item in meta["thumbnails"]:
         assert Path(item["image_path"]).exists()
 
-    analysis_file = tmp_path / "clip_gemini_analysis.txt"
+    analysis_file = tmp_path / "clip" / "analysis" / "clip_gemini_analysis.txt"
     assert analysis_file.exists()
-    assert "THUMBNAIL CANDIDATES" in analysis_file.read_text()
+    assert "THUMBNAIL PICKS (WRESTLING)" in analysis_file.read_text()
