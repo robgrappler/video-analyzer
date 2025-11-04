@@ -621,14 +621,43 @@ end
 
 local function add_marker(timeline, frame, color, name, note, duration_frames)
   if not timeline then
-    return false
+    return false, "Timeline is nil"
   end
   
-  local success = safe_call("Add marker '" .. name .. "' at frame " .. tostring(frame), function()
-    timeline:AddMarker(frame, color, name, note, duration_frames or 0)
-  end)
+  -- Try AddMarker with different argument patterns (Resolve API varies by version)
+  local success, err
   
-  return success ~= nil
+  -- Try: AddMarker(frame, color, name, note, duration)
+  success, err = pcall(function()
+    timeline:AddMarker(frame, color, name, note, duration_frames or 0)
+    return true
+  end)
+  if success then
+    return true, "Marker added successfully"
+  end
+  
+  -- Try: AddMarker(frame, color, name)
+  success, err = pcall(function()
+    timeline:AddMarker(frame, color, name)
+    return true
+  end)
+  if success then
+    print("[WARN] AddMarker works with 3 args (frame, color, name)")
+    return true, "Marker added (3-arg variant)"
+  end
+  
+  -- Try: AddMarker(frame, color, name, note) - without duration
+  success, err = pcall(function()
+    timeline:AddMarker(frame, color, name, note)
+    return true
+  end)
+  if success then
+    print("[WARN] AddMarker works with 4 args (frame, color, name, note)")
+    return true, "Marker added (4-arg variant)"
+  end
+  
+  print("[WARN] All AddMarker variants failed for '" .. name .. "': " .. tostring(err))
+  return false, tostring(err)
 end
 
 -- ============================================================================
@@ -771,13 +800,13 @@ local function process_edits(timeline, edits, run_log, api_available, dry_run, c
     
     -- Add marker if API available and not dry-run
     if api_available and not dry_run and timeline then
-      local marker_ok = add_marker(timeline, entry.start_f, entry.color, marker_name, marker_note, entry.duration_f)
+      local marker_ok, marker_msg = add_marker(timeline, entry.start_f, entry.color, marker_name, marker_note, entry.duration_f)
       if marker_ok then
         table.insert(entry.actions, "marker:added")
         markers_added = markers_added + 1
         entry.status = "marker_added"
       else
-        table.insert(entry.warnings, "Marker add failed (API may not support this)")
+        table.insert(entry.warnings, "Marker add failed: " .. (marker_msg or "unknown error"))
         entry.status = "marker_failed"
       end
     elseif dry_run then
