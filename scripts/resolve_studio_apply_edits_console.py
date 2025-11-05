@@ -254,7 +254,7 @@ EDITING_GUIDE_JSON = "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/edit
 PROJECT_NAME = "Match3 Nocturmex 25K"
 
 # Dry run (True = simulate only, False = apply changes)
-DRY_RUN = False
+DRY_RUN = True  # Set to False when ready to apply changes
 
 # ========== END SETTINGS ==========
 
