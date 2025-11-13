@@ -3,7 +3,7 @@
   "timeline_name": "Highlights Compilation",
   "timeline_fps": 30,
   "media": [
-    "/Users/ppt04/Github/video-analyzer/NocturmexMatch3 4K ULTIMATE/compilation/NocturmexMatch3 4K ULTIMATE_highlights_4k_h265.mp4"
+    "/Users/ppt04/Github/video-analyzer/NocturmexMatch3 4K ULTIMATE/compilation/NocturmexMatch3 4K ULTIMATE_highlights_final.mp4"
   ],
-  "notes": "Auto-imported 9-clip highlights compilation. Ready for optional color grading, audio normalization, and titles in Resolve."
+  "notes": "Re-encoded highlights compilation with proper frame reference handling. 45 seconds, 4K H.265 Main profile. Ready for optional color grading, audio normalization, and titles in Resolve."
 }
