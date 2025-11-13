@@ -144,7 +144,58 @@ Creates an editing guide that identifies high-impact moments for slow motion, zo
 - `./{video_name}/editing_guide/{video_name}_editing_guide.txt` – human-readable guide with quick-start instructions and time-coded edit suggestions  
 - `./{video_name}/editing_guide/{video_name}_editing_guide.json` – structured JSON (v1) with metadata for potential automation in editors such as DaVinci Resolve  
 
-## Contribution Guidelines  
+### Apply Editing Guide to DaVinci Resolve (Python, External CLI)
+
+Automatically apply editing guides to DaVinci Resolve using the Python API. The script performs complete clip modifications including speed ramps, retiming, opacity adjustments, color grading, zoom/pan/crop transforms, clip trimming, and intensity-based color tagging. The script auto-discovers the Resolve scripting module on macOS—no PYTHONPATH configuration required.
+
+**Prerequisites:**
+- DaVinci Resolve installed (free or Studio version)
+- Resolve running (for live operations)
+- External scripting enabled: `Preferences > System > General > External scripting using`
+- Python 3 with standard library
+
+**Features:**
+- 100% automated clip property modification
+- Speed ramps and retiming
+- Opacity adjustments
+- Color grading via Fusion composition creation
+- Zoom/pan/crop via transform tools
+- Clip trimming and organization
+- Intensity-based color tagging (Green→Cyan→Yellow→Orange→Red for levels 1-5)
+- Comprehensive JSON run log with modification tracking and warnings
+- Dry-run mode for planning before applying changes
+
+**Usage from repository root:**
+```bash
+python3 scripts/resolve_studio_apply_edits.py --json /path/to/editing_guide.json \
+    [--project-name "My Project"] [--dry-run]
+```
+
+**Usage from any directory:**
+```bash
+python3 /Users/ppt04/Github/video-analyzer/scripts/resolve_studio_apply_edits.py \
+    --json /path/to/editing_guide.json [--project-name "My Project"] [--dry-run]
+```
+
+**Custom Resolve installation path:**
+```bash
+export RESOLVE_SCRIPT_API="/path/to/DaVinci Resolve/Developer/Scripting/Modules"
+python3 scripts/resolve_studio_apply_edits.py --json /path/to/editing_guide.json
+```
+
+**Output:**
+- `{video_stem}_resolve_studio_apply_log.json` – comprehensive run log with timestamp, edit details, applied modifications, TODOs, and API capability info
+
+**Troubleshooting:**
+- If you see "scripting module not found", verify Resolve is installed and the Modules path exists:  
+  `/Library/Application Support/Blackmagic Design/DaVinci Resolve/Developer/Scripting/Modules/`
+- If you see "failed to create 'Resolve' app", ensure Resolve is running and external scripting is enabled in Preferences
+- The script will gracefully fall back to dry-run mode if the API is unavailable
+- Check the generated run log for detailed warnings and TODOs regarding which operations completed successfully
+
+**Note:** For running within Resolve's Script Editor console, use `scripts/resolve_studio_apply_edits_console.py` instead.
+
+## Contribution Guidelines
 
 Contributions are welcome! To propose a change:  
 

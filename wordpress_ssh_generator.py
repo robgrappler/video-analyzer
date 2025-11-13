@@ -17,8 +17,10 @@ from typing import Dict, Any, Optional
 # Import the data model and utilities from the REST version
 from wordpress_landing_page_generator import (
     VideoModel, load_analyzer_data, kebab_case, 
-    format_timestamp, add_utm_params, build_html_content
+    format_timestamp, add_utm_params
 )
+# Import theme-independent HTML builder
+from wordpress_landing_page_generator_v2 import build_html_content
 
 
 def load_ssh_config() -> Dict[str, Any]:

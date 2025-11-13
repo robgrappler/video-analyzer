@@ -100,11 +100,36 @@ export EDITING_GUIDE_JSON={{PATH_TO_EDITING_GUIDE_JSON}}
 cat {{GUIDE_DIR}}/{{stem}}_resolve_apply_log.json
 ```
 
-Resolution API behavior (macOS):
+Run: Apply Editing Guide to DaVinci Resolve (Python, external CLI)
+```bash
+# From repo root (auto-discovers DaVinciResolveScript on macOS; no PYTHONPATH needed)
+python3 scripts/resolve_studio_apply_edits.py --json /path/to/editing_guide.json \
+    [--project-name "My Project"] [--dry-run]
+
+# From any directory (absolute script path)
+python3 /Users/ppt04/Github/video-analyzer/scripts/resolve_studio_apply_edits.py \
+    --json /path/to/editing_guide.json [--project-name "My Project"] [--dry-run]
+
+# Custom Resolve installation path (env var override)
+export RESOLVE_SCRIPT_API="/path/to/DaVinci Resolve/Developer/Scripting/Modules"
+python3 scripts/resolve_studio_apply_edits.py --json /path/to/editing_guide.json
+```
+
+Python API auto-discovery:
+- Auto-discovers DaVinciResolveScript module at macOS default path: `/Library/Application Support/Blackmagic Design/DaVinci Resolve/Developer/Scripting/Modules/`
+- No PYTHONPATH configuration required
+- Supports env var override via `RESOLVE_SCRIPT_API` for custom installs
+- Requires Resolve running and external scripting enabled: `Preferences > System > General > External scripting using`
+- Gracefully falls back to dry-run mode if API unavailable
+- For in-Resolve console execution, use `scripts/resolve_studio_apply_edits_console.py` instead
+
+Resolve API behavior (macOS):
 - **Dry-run mode** (default when API unavailable): Computes markers and logs but does not mutate Resolve.
 - **Live mode** (requires Resolve open + scripting enabled): Attempts to create project, timeline, and markers.
 - Both modes generate a run log with timestamp, edit details, TODOs, and API capability info.
 - Visual effects and audio operations are logged as TODOs; only markers are created in v1.
+- Lua version: primary in-Resolve pathway via Fusion script interpreter
+- Python version: external CLI for automation workflows
 
 Notes
 - The local LLaVA-based analyzer has been removed.

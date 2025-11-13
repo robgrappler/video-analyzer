@@ -270,8 +270,28 @@ def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_ima
     
     html = f"""
 <style>
-/* Modern Base Styles */
-* {{ box-sizing: border-box; }}
+/* Aggressive CSS Reset for Landing Page Container */
+#robgrappler-landing * {{
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-size: 100% !important;
+    font: inherit !important;
+    vertical-align: baseline !important;
+    box-sizing: border-box !important;
+}}
+
+#robgrappler-landing {{
+    all: initial !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+    line-height: 1.6 !important;
+    color: #333 !important;
+}}
 
 /* Hero Section with Video Background */
 .lp-hero {{
@@ -758,8 +778,9 @@ def build_html_content(model: VideoModel, cta_url: str, branding: Dict, hero_ima
         </div>
 """
         html += """    </div>
-    <a href="" + cta_url + """ class="lp-cta" target="_blank" rel="noopener">🎬 Watch Full Match</a>
-</div>
+"""
+        html += f'    <a href="{cta_url}" class="lp-cta" target="_blank" rel="noopener">🎬 Watch Full Match</a>\n'
+        html += """</div>
 
 """
     

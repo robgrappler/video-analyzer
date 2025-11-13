@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-11-06T19:22:03.968466",
+  "json_path": "/Users/ppt04/Github/video-analyzer/Match3Nocturmex25K/editing_guide/Match3Nocturmex25K_editing_guide.json",
+  "dry_run": false,
+  "api_version": "python_studio",
+  "edits": [
+    {
+      "id": "E001",
+      "label": "Round 1: Takedown to Crucifix Pin",
+      "intensity": 4,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan None-None-None)"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E002",
+      "label": "Round 2: Dominant Takedown & Control",
+      "intensity": 3,
+      "modifications": [
+        "Zoom: 1.0 -> 1.15"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E003",
+      "label": "Technical Reversal into Pinning Combo",
+      "intensity": 4,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan None-None-None)",
+        "Color grade: Fusion comp created"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E004",
+      "label": "Submission Threat: Foot Lock Scramble",
+      "intensity": 4,
+      "modifications": [],
+      "warnings": [
+        "Audio effect 'audio_ducking' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E005",
+      "label": "Dominance Display: Chest Stand",
+      "intensity": 5,
+      "modifications": [],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E006",
+      "label": "Choke Threat: Rear Naked Choke",
+      "intensity": 4,
+      "modifications": [
+        "Zoom: 1.0 -> 1.25"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E007",
+      "label": "Power Reversal & Takedown",
+      "intensity": 5,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan None-None-None)"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E008",
+      "label": "Match Finish: Exhaustion & KO",
+      "intensity": 5,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan None-None-None)"
+      ],
+      "warnings": [
+        "Audio effect 'audio_ducking' requires manual setup on audio track",
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    }
+  ],
+  "timeline_fps": 30,
+  "status": "completed",
+  "modifications_applied": 7
+}

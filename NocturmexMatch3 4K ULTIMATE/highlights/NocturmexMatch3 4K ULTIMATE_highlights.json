@@ -1,0 +1,127 @@
+{
+  "video": {
+    "stem": "NocturmexMatch3 4K ULTIMATE",
+    "source_path": "/Users/ppt04/Movies/NocturmexMatch3 4K ULTIMATE.mp4",
+    "duration_seconds": 853.802,
+    "fps": 29.999953148864797
+  },
+  "highlights": [
+    {
+      "index": 1,
+      "label": "near_fall",
+      "start_seconds": 36.0,
+      "end_seconds": 41.0,
+      "start_hms": "00:00:36",
+      "end_hms": "00:00:41",
+      "start_frame": 1080,
+      "end_frame": 1230,
+      "why_high_converting": "A classic, powerful cradle pin attempt that showcases both strength and technical wrestling skill, creating immediate tension.",
+      "emotional_hook": "He's locked in tight with nowhere to go; can he possibly escape this pin?",
+      "suggested_caption": "Powerful cradle pin attempt."
+    },
+    {
+      "index": 2,
+      "label": "submission_threat",
+      "start_seconds": 87.0,
+      "end_seconds": 92.0,
+      "start_hms": "00:01:27",
+      "end_hms": "00:01:32",
+      "start_frame": 2610,
+      "end_frame": 2760,
+      "why_high_converting": "The deep headlock creates intense suspense, with the bottom man's visible struggle and pained expression hooking viewers emotionally.",
+      "emotional_hook": "Watch him fight through the pain of a brutal submission attempt.",
+      "suggested_caption": "Fighting a deep headlock."
+    },
+    {
+      "index": 3,
+      "label": "dominance",
+      "start_seconds": 207.0,
+      "end_seconds": 212.0,
+      "start_hms": "00:03:27",
+      "end_hms": "00:03:32",
+      "start_frame": 6210,
+      "end_frame": 6360,
+      "why_high_converting": "A clear display of alpha dominance, with the top man controlling his opponent and delivering punishing slaps, escalating the match's intensity.",
+      "emotional_hook": "He's not just pinning him, he's making him suffer for every second.",
+      "suggested_caption": "Total dominance and punishment."
+    },
+    {
+      "index": 4,
+      "label": "comeback",
+      "start_seconds": 308.0,
+      "end_seconds": 313.0,
+      "start_hms": "00:05:08",
+      "end_hms": "00:05:13",
+      "start_frame": 9240,
+      "end_frame": 9390,
+      "why_high_converting": "A dramatic momentum shift where the bottom man reverses position and immediately attacks with a leg submission, creating a compelling comeback narrative.",
+      "emotional_hook": "Just when you think he's finished, he turns the tables completely.",
+      "suggested_caption": "Stunning reversal into submission."
+    },
+    {
+      "index": 5,
+      "label": "takedown",
+      "start_seconds": 489.0,
+      "end_seconds": 494.0,
+      "start_hms": "00:08:09",
+      "end_hms": "00:08:14",
+      "start_frame": 14670,
+      "end_frame": 14820,
+      "why_high_converting": "An explosive takedown demonstrates raw power and athleticism, immediately establishing dominance at the start of a new exchange.",
+      "emotional_hook": "Experience the impact of a perfectly executed takedown.",
+      "suggested_caption": "Explosive takedown into control."
+    },
+    {
+      "index": 6,
+      "label": "victory",
+      "start_seconds": 613.0,
+      "end_seconds": 618.0,
+      "start_hms": "00:10:13",
+      "end_hms": "00:10:18",
+      "start_frame": 18390,
+      "end_frame": 18540,
+      "why_high_converting": "The definitive victory pose after the first match. The winner stands over his defeated opponent and flexes, providing a powerful and conclusive payoff moment.",
+      "emotional_hook": "The victor stands tall after a grueling first battle.",
+      "suggested_caption": "The victor claims his prize."
+    },
+    {
+      "index": 7,
+      "label": "near_fall",
+      "start_seconds": 670.0,
+      "end_seconds": 675.0,
+      "start_hms": "00:11:10",
+      "end_hms": "00:11:15",
+      "start_frame": 20100,
+      "end_frame": 20250,
+      "why_high_converting": "A deep, leveraged pin attempt where the opponent is completely flattened. The struggle to escape creates high tension and drama.",
+      "emotional_hook": "He's trapped with nowhere to go. Is this the end?",
+      "suggested_caption": "Crushing bodyweight pin attempt."
+    },
+    {
+      "index": 8,
+      "label": "scramble",
+      "start_seconds": 792.0,
+      "end_seconds": 797.0,
+      "start_hms": "00:13:12",
+      "end_hms": "00:13:17",
+      "start_frame": 23760,
+      "end_frame": 23910,
+      "why_high_converting": "A chaotic and athletic scramble where both men fight for control, showcasing their agility and endurance late in the match.",
+      "emotional_hook": "Who will come out on top in this desperate scramble?",
+      "suggested_caption": "Desperate fight for control."
+    },
+    {
+      "index": 9,
+      "label": "dominance",
+      "start_seconds": 814.0,
+      "end_seconds": 819.0,
+      "start_hms": "00:13:34",
+      "end_hms": "00:13:39",
+      "start_frame": 24420,
+      "end_frame": 24570,
+      "why_high_converting": "The ultimate display of dominance as the winner stands on his defeated opponent's chest, a powerful and memorable post-match moment.",
+      "emotional_hook": "The final statement of dominance after a hard-fought victory.",
+      "suggested_caption": "A final, dominant statement."
+    }
+  ]
+}

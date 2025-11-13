@@ -258,7 +258,8 @@ def _build_prompt(mode: str = "both", cta_url: str = None) -> str:
 IMPORTANT GUARDRAILS:
 - Avoid explicit sexual description; describe heat and intensity without graphic details
 - Do not invent identities; use only visible/audible information
-- Use seconds for all timestamps
+- CRITICAL: All timestamps MUST be in seconds and ACCURATE to the actual video timeline. Double-check your temporal understanding before providing timestamps.
+- If uncertain about exact timing, estimate conservatively and note uncertainty
 - Language should be persuasive, honest, and tailored to gay male amateur grappling fans (ages 20–60)
 
 At the end, output [BEGIN JSON] followed by a JSON object with these keys:
@@ -320,29 +321,69 @@ def analyze_video_gemini(video_path, api_key=None, mode: str = "both", json_out:
         own_upload = False
         printer.println(f"Using existing uploaded file: {video_file.name}")
     else:
+            else:
         print(f"Uploading video: {video_path}")
         # Get file size
         try:
             total_bytes = os.path.getsize(video_path)
         except Exception:
             total_bytes = 0
+
         upload_start = time.monotonic()
         upload_end = None
+
         # Detect or use provided mime type
         detected_mime = mime_type
         if not detected_mime:
             detected_mime, _ = mimetypes.guess_type(video_path)
         if not detected_mime:
             detected_mime = "video/mp4"
-        # Heartbeat
-        stop_event = threading.Event()
-        def _heartbeat():
-            while not stop_event.is_set():
-                elapsed_hb = time.monotonic() - upload_start
-                printer.update_line(f"Uploading... (elapsed: {_human_duration(elapsed_hb)})")
-                time.sleep(1.0)
-        hb_thread = threading.Thread(target=_heartbeat, daemon=True)
-        hb_thread.start()
+
+        # Progress callback
+        def _on_progress(done_bytes, total_bytes, bps):
+            elapsed = time.monotonic() - upload_start
+            if total_bytes > 0:
+                pct = done_bytes / total_bytes * 100.0
+                msg = (
+                    f"Uploading: {_human_bytes(done_bytes)} / {_human_bytes(total_bytes)} "
+                    f"({pct:5.1f}%) at {_human_rate(bps)} "
+                    f"(elapsed: {_human_duration(elapsed)})"
+                )
+            else:
+                msg = (
+                    f"Uploading: {_human_bytes(done_bytes)} at {_human_rate(bps)} "
+                    f"(elapsed: {_human_duration(elapsed)})"
+                )
+            printer.update_line(msg)
+
+        try:
+            with open(video_path, "rb") as raw_fp:
+                tracked_fp = TrackedFile(raw_fp, total_bytes, _on_progress)
+                # IMPORTANT: use `file=` not `path=`
+                video_file = genai.upload_file(
+                    file=tracked_fp,
+                    mime_type=detected_mime,
+                    display_name=os.path.basename(video_path),
+                    resumable=True,
+                )
+                upload_end = time.monotonic()
+        except Exception as e:
+            printer.println(f"Upload failed: {e}")
+            if "mime" in str(e).lower():
+                printer.println("Hint: Use --mime-type to explicitly specify the video MIME type (e.g., 'video/mp4')")
+            raise
+
+        # Upload summary
+        if upload_end and total_bytes > 0:
+            elapsed = upload_end - upload_start
+            avg_speed = total_bytes / elapsed if elapsed > 0 else 0
+            printer.println(
+                f"Upload complete in {_human_duration(elapsed)} "
+                f"at {_human_rate(avg_speed)} avg"
+            )
+        else:
+            printer.println("Upload complete")
+        printer.println(f"Uploaded: {video_file.name}")
         try:
             video_file = genai.upload_file(
                 path=video_path,

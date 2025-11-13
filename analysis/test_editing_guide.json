@@ -1,0 +1,59 @@
+
+{
+  "guide_version": "1.1.0",
+  "video": {
+    "stem": "test_video",
+    "source_path": "/Users/ppt04/Github/video-analyzer/test_video.mp4",
+    "duration_hhmmss": "00:01:00",
+    "mime_type": "video/mp4"
+  },
+  "edits": [
+    {
+      "id": "E001",
+      "label": "Test Slow Motion",
+      "start": "00:00:10",
+      "end": "00:00:15",
+      "intensity_1_5": 3,
+      "edits": [
+        {
+          "type": "slow_motion",
+          "parameters": {
+            "speed": 50
+          }
+        }
+      ],
+      "why_this_works": "Test",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": []
+      }
+    },
+    {
+      "id": "E002",
+      "label": "Test Zoom",
+      "start": "00:00:20",
+      "end": "00:00:25",
+      "intensity_1_5": 4,
+      "edits": [
+        {
+          "type": "zoom",
+          "parameters": {
+            "start_zoom": 1.0,
+            "end_zoom": 1.5
+          }
+        }
+      ],
+      "why_this_works": "Test",
+      "resolve_hint": {
+        "video_track": "V1",
+        "audio_track": "A1",
+        "effects_map": []
+      }
+    }
+  ],
+  "notes": {
+    "marketing_refs": [],
+    "promo_cut_hint": ""
+  }
+}

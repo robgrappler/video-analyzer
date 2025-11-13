@@ -1,0 +1,163 @@
+{
+  "timestamp": "2025-11-06T15:26:56.645968",
+  "json_path": "Match3Nocturmex25K_editing_guide.json",
+  "dry_run": false,
+  "api_version": "python_studio",
+  "edits": [
+    {
+      "id": "E001",
+      "label": "Initial Takedown",
+      "intensity": 3,
+      "modifications": [],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E002",
+      "label": "First Submission Victory",
+      "intensity": 4,
+      "modifications": [
+        "Zoom: 1.0 -> 1.15"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E003",
+      "label": "Aggressive Restart Takedown",
+      "intensity": 3,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan 120-60-100)"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E004",
+      "label": "Pin Victory & Celebration",
+      "intensity": 4,
+      "modifications": [
+        "Zoom: 1.0 -> 1.1",
+        "Color grade: Fusion comp created"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E005",
+      "label": "Dominant Victory Pose",
+      "intensity": 5,
+      "modifications": [],
+      "warnings": []
+    },
+    {
+      "id": "E006",
+      "label": "Face Smother Submission",
+      "intensity": 4,
+      "modifications": [
+        "Zoom: 1.0 -> 1.2"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E007",
+      "label": "Powerful Slam",
+      "intensity": 4,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan 100-50-100)"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E008",
+      "label": "Chest Trample",
+      "intensity": 5,
+      "modifications": [
+        "Zoom: 1.1 -> 1.0"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E009",
+      "label": "Surprise Takedown Reversal",
+      "intensity": 3,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan 100-70-120)"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E010",
+      "label": "Desperate Escape",
+      "intensity": 4,
+      "modifications": [
+        "Zoom: 1.2 -> 1.0"
+      ],
+      "warnings": [
+        "Audio effect 'audio_ducking' requires manual setup on audio track",
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E011",
+      "label": "Athletic Leapfrog Takedown",
+      "intensity": 4,
+      "modifications": [],
+      "warnings": []
+    },
+    {
+      "id": "E012",
+      "label": "Rear Naked Choke Finish",
+      "intensity": 5,
+      "modifications": [
+        "Zoom: 1.0 -> 1.2",
+        "Color grade: Fusion comp created"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E013",
+      "label": "Crucifix Pin Control",
+      "intensity": 4,
+      "modifications": [],
+      "warnings": []
+    },
+    {
+      "id": "E014",
+      "label": "Final Pin Victory",
+      "intensity": 5,
+      "modifications": [
+        "Speed ramp: Fusion comp created (plan 100-30-100)"
+      ],
+      "warnings": [
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    },
+    {
+      "id": "E015",
+      "label": "Post-Match Trample",
+      "intensity": 5,
+      "modifications": [
+        "Color grade: Fusion comp created"
+      ],
+      "warnings": []
+    },
+    {
+      "id": "E016",
+      "label": "Exhausted Collapse",
+      "intensity": 3,
+      "modifications": [],
+      "warnings": [
+        "Audio effect 'audio_ducking' requires manual setup on audio track",
+        "Audio effect 'sfx' requires manual setup on audio track"
+      ]
+    }
+  ],
+  "timeline_fps": 30,
+  "status": "completed",
+  "modifications_applied": 13
+}

@@ -161,7 +161,7 @@ For each editing recommendation, specify:
 Return ONLY valid JSON with this exact schema:
 
 {{
-  "guide_version": "1.0.0",
+  "guide_version": "1.1.0",
   "video": {{
     "duration_hhmmss": "{duration_hhmmss}",
     "analysis_timestamp": "{datetime.now().isoformat()}"
@@ -172,11 +172,15 @@ Return ONLY valid JSON with this exact schema:
       "label": "Brief descriptive label",
       "start": "HH:MM:SS",
       "end": "HH:MM:SS",
-      "intensity_1_5": 1-5,
+      "intensity_1_5": 3,
       "edits": [
         {{
-          "type": "slow_motion|zoom|sfx|color_grade|speed_ramp|vignette|crop_reframe|audio_ducking",
-          "parameters": {{"factor": 0.5, "ramp": "ease_in_out"}}
+          "type": "slow_motion",
+          "parameters": {{"speed": 50}}
+        }},
+        {{
+          "type": "zoom",
+          "parameters": {{"start_zoom": 1.0, "end_zoom": 1.2}}
         }}
       ],
       "why_this_works": "Explanation referencing marketing psychology (dominance/drama/impact/tension)",
@@ -184,8 +188,8 @@ Return ONLY valid JSON with this exact schema:
         "video_track": "V1",
         "audio_track": "A1",
         "effects_map": [
-          "Retime Curve: constant 50%",
-          "Transform: keyframe Zoom 1.0→1.2"
+          "Retime: set speed to 50%",
+          "Transform: keyframe Zoom from 1.0 to 1.2"
         ]
       }}
     }}
@@ -227,7 +231,7 @@ def parse_and_validate_json(raw_text: str, duration_seconds: float, max_edits: i
         data = json.loads(text)
     except json.JSONDecodeError as e:
         print(f"Warning: JSON parse failed: {e}", file=sys.stderr)
-        return {"guide_version": "1.0.0", "video": {}, "edits": [], "notes": {}}
+        return {"guide_version": "1.1.0", "video": {}, "edits": [], "notes": {}}
     
     if "edits" not in data:
         data["edits"] = []
@@ -309,7 +313,7 @@ def generate_text_guide(data: dict, video_stem: str, video_path: str) -> str:
     lines.append(f"Source: {video_path}")
     lines.append(f"Duration: {data.get('video', {}).get('duration_hhmmss', 'N/A')}")
     lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    lines.append(f"Guide Version: {data.get('guide_version', '1.0.0')}")
+    lines.append(f"Guide Version: {data.get('guide_version', '1.1.0')}")
     lines.append("")
     lines.append("=" * 80)
     lines.append("QUICKSTART FOR NEWBIES")

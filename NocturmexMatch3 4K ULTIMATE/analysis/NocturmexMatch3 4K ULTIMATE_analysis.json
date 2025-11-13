@@ -1,0 +1,202 @@
+{
+  "intensity_10": 9,
+  "competitiveness_10": 7,
+  "momentum_shifts": [
+    {
+      "start_s": 18,
+      "end_s": 35,
+      "who_led": "A",
+      "why": "Initial takedown attempt and front headlock control."
+    },
+    {
+      "start_s": 35,
+      "end_s": 89,
+      "who_led": "B",
+      "why": "Reversal from bottom, established top control, and secured the first pin."
+    },
+    {
+      "start_s": 166,
+      "end_s": 231,
+      "who_led": "B",
+      "why": "Immediate takedown and dominant control leading to the second pin."
+    },
+    {
+      "start_s": 269,
+      "end_s": 275,
+      "who_led": "A",
+      "why": "Successful takedown at the start of the round."
+    },
+    {
+      "start_s": 275,
+      "end_s": 323,
+      "who_led": "B",
+      "why": "Immediate reversal into a dominant pinning position, leading to the final pin."
+    }
+  ],
+  "technical_rating_10": 7,
+  "techniques": [
+    {
+      "name": "Front Headlock",
+      "type": "control",
+      "difficulty_5": 2,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 20,
+      "end_s": 35
+    },
+    {
+      "name": "Near-side Cradle",
+      "type": "pin",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 37,
+      "end_s": 44
+    },
+    {
+      "name": "Mount Control",
+      "type": "control",
+      "difficulty_5": 2,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 65,
+      "end_s": 89
+    },
+    {
+      "name": "Neck Crank from Mount",
+      "type": "submission",
+      "difficulty_5": 2,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 127,
+      "end_s": 136
+    },
+    {
+      "name": "Pin from Side Control",
+      "type": "pin",
+      "difficulty_5": 3,
+      "cleanliness": "gritty",
+      "effectiveness": "high",
+      "start_s": 206,
+      "end_s": 231
+    },
+    {
+      "name": "Rear Naked Choke (for control)",
+      "type": "submission",
+      "difficulty_5": 3,
+      "cleanliness": "crisp",
+      "effectiveness": "high",
+      "start_s": 317,
+      "end_s": 323
+    },
+    {
+      "name": "Crucifix Pin Attempt",
+      "type": "pin",
+      "difficulty_5": 4,
+      "cleanliness": "gritty",
+      "effectiveness": "mid",
+      "start_s": 399,
+      "end_s": 406
+    }
+  ],
+  "style": "mixed",
+  "physiques": [
+    {
+      "descriptor": "athletic",
+      "definition_5": 3,
+      "conditioning_5": 4,
+      "gear_notes": "Black compression shorts, black socks, and a prominent colorful Japanese-style sleeve tattoo on his left arm that adds to his visual appeal."
+    },
+    {
+      "descriptor": "muscular",
+      "definition_5": 3,
+      "conditioning_5": 5,
+      "gear_notes": "Powerful, stocky build with a hairy chest and defined musculature. Wears tight blue boxer briefs with a tropical/motel print that highlights his physique."
+    }
+  ],
+  "heat_factor_5": 5,
+  "highlight_moments": [
+    {
+      "time_s": 37,
+      "type": "technical_exchange",
+      "why_it_hooks": "An intense early scramble where A almost secures a pin with a deep cradle, showing the match is competitive.",
+      "suggested_thumbnail_time_s": 38
+    },
+    {
+      "time_s": 108,
+      "type": "dominance",
+      "why_it_hooks": "B establishes a heavy mount, trapping A and showcasing complete top-game control.",
+      "suggested_thumbnail_time_s": 109
+    },
+    {
+      "time_s": 136,
+      "type": "submission_threat",
+      "why_it_hooks": "A raw display of power as B applies a brutal neck crank from the mount.",
+      "suggested_thumbnail_time_s": 136
+    },
+    {
+      "time_s": 222,
+      "type": "dominance",
+      "why_it_hooks": "B shows off his strength, flexing his muscles while holding A down for a pin.",
+      "suggested_thumbnail_time_s": 223
+    },
+    {
+      "time_s": 322,
+      "type": "submission_threat",
+      "why_it_hooks": "B has his opponent completely trapped, sinking in a rear naked choke to force the submission.",
+      "suggested_thumbnail_time_s": 322
+    },
+    {
+      "time_s": 402,
+      "type": "technical_exchange",
+      "why_it_hooks": "A complex and visually interesting crucifix-style pin attempt demonstrates B's versatile control.",
+      "suggested_thumbnail_time_s": 402
+    },
+    {
+      "time_s": 517,
+      "type": "dominance",
+      "why_it_hooks": "The final, decisive pin after a flurry of action, solidifying B's victory.",
+      "suggested_thumbnail_time_s": 517
+    },
+    {
+      "time_s": 525,
+      "type": "dominance",
+      "why_it_hooks": "The ultimate alpha move: the victor stands and plants his foot on the chest of his defeated opponent.",
+      "suggested_thumbnail_time_s": 526
+    }
+  ],
+  "rewatch_value_10": 8,
+  "pacing_curve": {
+    "early_10": 9,
+    "mid_10": 7,
+    "late_10": 8
+  },
+  "capture_rating_10": 7,
+  "titles": [
+    "Brutal Back-and-Forth Battle: Robgrappler vs Ncturmex",
+    "Tattooed Fighter vs Hairy Beast: An All-Out War",
+    "Dominance on the Mat: A Grueling Grappling Showdown"
+  ],
+  "descriptions": [
+    "Witness a raw and relentless grappling war as two powerful wrestlers collide. This back-and-forth battle is filled with explosive scrambles, crushing pins, and a clear display of dominance.",
+    "It's a clash of styles and wills as a tattooed fighter tries to overcome a bigger, stronger opponent. Experience every grunt, strain, and submission attempt in this intense, competitive match from start to finish."
+  ],
+  "bullets": [
+    "Intense, back-and-forth wrestling action.",
+    "Features a dominant performance by a powerful, muscular grappler.",
+    "High-energy scrambles and technical pinning combinations.",
+    "Clear, raw audio captures every moment of the struggle.",
+    "A compelling dynamic between two athletic, alpha competitors."
+  ],
+  "cta": "Watch the full match to see who breaks first in this brutal test of stamina and strength.",
+  "buyer_tags": [
+    "dominant",
+    "muscular",
+    "hairy chest",
+    "submission grappling",
+    "pinfall",
+    "intense",
+    "tattoo",
+    "back-and-forth"
+  ]
+}
